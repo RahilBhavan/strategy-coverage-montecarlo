@@ -1,66 +1,68 @@
 {
- "id": "funding-exhaustion",
- "set": "coverage-model",
- "template": "rahil-design-light-figure",
- "reader": "Engineer or recruiter inspecting the research README",
- "decision": "Understand how funding sources change the conditional first-passage distribution",
- "point": "BTC sales leave 61.41% of modeled paths funded through 20 years, versus none with only reserve and common ATM",
- "comparison": "Three modeled funding tiers on the same GBM paths",
- "title": "BTC sales leave 61.41% funded at 20 years",
- "subtitle": "Compare three funding tiers on the same simulated paths",
- "caption": "Conditional scenarios; model and parameter error are not shown.",
- "form": "step",
- "values_count": 120,
- "shape_reason": "The timing of exhaustion and the censored tail distinguish funding tiers",
- "encodings": [
-  {
-   "mark": "step",
-   "baseline": 0,
-   "axis_min": 0,
-   "axis_min_labeled": true,
-   "scale": "linear",
-   "scale_labeled": true,
-   "series": 3
-  }
- ],
- "accents": 1,
- "accent_meaning": "title-value",
- "estimates": {
-  "present": true,
-  "labeled": true,
-  "treatment": "dashed"
- },
- "illustration": false,
- "illustration_labeled": false,
- "compare_with": [],
- "scale_id": "cdf-0-100",
- "sources": [
-  {
-   "title": "Full GBM first-passage simulation",
-   "url": "../results/coverage_distribution.json",
-   "as_of": "2026-10-21"
-  }
- ],
- "alt": "61.41% of GBM tier-c paths remain funded at 20 years; reserve-only and reserve plus common reach 100% exhaustion under the scenario rules.",
- "sizes_checked": [
-  "900x600"
- ],
- "feed_width_viewed": true,
- "min_label_px": 20,
- "point_px": 30,
- "five_second_test": {
-  "by": "agent",
-  "date": "2026-10-21",
-  "said": "Adding BTC sales leaves a censored survivor tail; two lesser funding tiers exhaust",
-  "result": "pass"
- },
- "attached_in": {
-  "post": "README.md",
-  "image": "results/funding_exhaustion.svg"
- },
- "warn_reasons": {
-  "point size below social-card recommendation": "This is a zoomable README SVG at 900x600; the point is 30px at export size. At 400px, readers can open the figure and read parallel README text.",
-  "agent reader test": "No independent human reader test was available."
- },
- "contrast_min": 6.916424911441444
+  "id": "funding-exhaustion",
+  "set": "coverage-model",
+  "template": "rahil-design-light-figure",
+  "reader": "Engineer or recruiter inspecting the research README",
+  "decision": "Understand how funding sources change the conditional first-passage distribution",
+  "point": "BTC sales leave 61.41% of modeled paths funded through 20 years, versus none with only reserve and common ATM",
+  "comparison": "Three modeled funding tiers on the same GBM paths",
+  "title": "BTC sales leave 61.41% funded at 20 years",
+  "subtitle": "Compare three funding tiers on the same simulated paths",
+  "caption": "Conditional scenarios; model and parameter error are not shown.",
+  "form": "step",
+  "values_count": 120,
+  "shape_reason": "The timing of exhaustion and the censored tail distinguish funding tiers",
+  "encodings": [
+    {
+      "mark": "step",
+      "baseline": 0,
+      "axis_min": 0,
+      "axis_min_labeled": true,
+      "scale": "linear",
+      "scale_labeled": true,
+      "series": 3
+    }
+  ],
+  "accents": 1,
+  "accent_meaning": "title-value",
+  "estimates": {
+    "present": true,
+    "labeled": true,
+    "treatment": "dashed"
+  },
+  "illustration": false,
+  "illustration_labeled": false,
+  "compare_with": [],
+  "scale_id": "cdf-0-100",
+  "sources": [
+    {
+      "title": "Full GBM first-passage simulation",
+      "url": "../results/coverage_distribution.json",
+      "as_of": "2026-10-21"
+    }
+  ],
+  "alt": "61.41% of GBM tier-c paths remain funded at 20 years; reserve-only and reserve plus common reach 100% exhaustion under the scenario rules.",
+  "sizes_checked": [
+    "900x600"
+  ],
+  "feed_width_viewed": true,
+  "min_label_px": 20,
+  "point_px": 30,
+  "five_second_test": {
+    "by": "agent",
+    "date": "2026-10-21",
+    "said": "Adding BTC sales leaves a censored survivor tail; two lesser funding tiers exhaust",
+    "result": "pass"
+  },
+  "attached_in": {
+    "post": "README.md",
+    "image": "results/funding_exhaustion.svg"
+  },
+  "warn_reasons": {
+    "point size below social-card recommendation": "This is a zoomable README SVG at 900x600; the point is 30px at export size. At 400px, readers can open the figure and read parallel README text.",
+    "agent reader test": "No independent human reader test was available.",
+    "five-second test": "Agent self-test only. No independent human comprehension study or feed-readability claim is made.",
+    "the point renders": "This is an openable README SVG, not a feed card; the 30px native headline and parallel README text retain the point. Narrow previews require opening the artifact."
+  },
+  "contrast_min": 6.916424911441444
 }
