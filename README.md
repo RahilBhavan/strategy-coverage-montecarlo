@@ -47,6 +47,8 @@ The full run writes `results/*.json` and took about three minutes on this host. 
 
 ## Documentation
 
+- [Public design system](DESIGN.md): Rahil Design 3.3.0, shared tokens and visual review rules.
+
 - [Scope and acceptance](docs/spec.md) — agreed local v1.
 - [Methodology](docs/methodology.md) — equations, funding policies and probability interpretation.
 - [Sources](docs/sources.md) — observed inputs, estimated bridges and frozen provenance.
