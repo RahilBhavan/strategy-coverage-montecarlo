@@ -1,0 +1,128 @@
+{
+ "metric": "P(tier b fails within 5y), GBM, with principal",
+ "n_paths": 10000,
+ "base": 0.4618,
+ "rows": [
+  {
+   "name": "mNAV link form",
+   "label": "peak drawdown",
+   "low": 0.7905,
+   "high": null
+  },
+  {
+   "name": "mNAV link to BTC (gamma)",
+   "label": "0 / 1.0",
+   "low": 0.1922,
+   "high": 0.5363
+  },
+  {
+   "name": "Issuance gate",
+   "label": "none (0x) / 1.2x",
+   "low": 0.2286,
+   "high": 0.6163
+  },
+  {
+   "name": "Funding order",
+   "label": "Reserve first (static path)",
+   "low": 0.6902,
+   "high": null
+  },
+  {
+   "name": "BTC log drift",
+   "label": "-20% / +20% a year",
+   "low": 0.6727,
+   "high": 0.2686
+  },
+  {
+   "name": "mNAV long-run level",
+   "label": "1.0x / 1.4x",
+   "low": 0.568,
+   "high": 0.3241
+  },
+  {
+   "name": "Pre-fund lookahead",
+   "label": "0 / 24 months",
+   "low": 0.5918,
+   "high": 0.4091
+  },
+  {
+   "name": "BTC volatility",
+   "label": "47% (last 3y) / 80%",
+   "low": 0.3966,
+   "high": 0.4903
+  },
+  {
+   "name": "ADV participation",
+   "label": "1% / 5%",
+   "low": 0.5243,
+   "high": 0.4
+  },
+  {
+   "name": "ADV long-run level",
+   "label": "12m / 30m shares",
+   "low": 0.4923,
+   "high": 0.4276
+  },
+  {
+   "name": "mNAV dispersion (sd log)",
+   "label": "0.06 / 0.20",
+   "low": 0.4789,
+   "high": 0.4337
+  },
+  {
+   "name": "mNAV half-life",
+   "label": "13 weeks / 1 year",
+   "low": 0.4885,
+   "high": 0.4393
+  },
+  {
+   "name": "Put election",
+   "label": "all puts in cash",
+   "low": 0.4471,
+   "high": null
+  },
+  {
+   "name": "Path model",
+   "label": "block bootstrap",
+   "low": 0.4756,
+   "high": null
+  },
+  {
+   "name": "USD Cash counted",
+   "label": "yes",
+   "low": 0.4548,
+   "high": null
+  },
+  {
+   "name": "STRC rate",
+   "label": "10% / 15%",
+   "low": 0.4555,
+   "high": 0.4685
+  },
+  {
+   "name": "mNAV-BTC shock correlation",
+   "label": "-0.2 / +0.5",
+   "low": 0.4634,
+   "high": 0.4557
+  },
+  {
+   "name": "Issuance fee",
+   "label": "0% / 3%",
+   "low": 0.461,
+   "high": 0.4632
+  },
+  {
+   "name": "EUR/USD start",
+   "label": "1.00 / 1.35",
+   "low": 0.4613,
+   "high": 0.4626
+  },
+  {
+   "name": "ATM capacity",
+   "label": "unlimited (new programs)",
+   "low": 0.4618,
+   "high": null
+  }
+ ],
+ "note": "Common random numbers: every case reuses the base seed."
+}

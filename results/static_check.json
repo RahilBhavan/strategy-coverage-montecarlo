@@ -1,0 +1,85 @@
+{
+ "inputs": "base-2026-10-15",
+ "snapshot": {
+  "charges": 1559.6675182499998,
+  "reserve_months": 37.546463791017665,
+  "years_reserve_plus_common": 15.187595896449965,
+  "annual_common": 16775.0352,
+  "share_price": 151.29,
+  "net_value": 55521.745650000004,
+  "mnav": 1.1745671782680671
+ },
+ "by_seniority": [
+  {
+   "claim": "Debt interest",
+   "cumulative_charges": 36.59451625,
+   "reserve_months": 600.0,
+   "reserve_plus_common_years": 50.0
+  },
+  {
+   "claim": "STRF",
+   "cumulative_charges": 164.99141625000001,
+   "reserve_months": 354.9275552084971,
+   "reserve_plus_common_years": 50.0
+  },
+  {
+   "claim": "STRC",
+   "cumulative_charges": 1220.0486482499998,
+   "reserve_months": 47.99808604681187,
+   "reserve_plus_common_years": 19.4152913770912
+  },
+  {
+   "claim": "STRE",
+   "cumulative_charges": 1307.2593982499998,
+   "reserve_months": 44.796006116607785,
+   "reserve_plus_common_years": 18.120045670897515
+  },
+  {
+   "claim": "STRK",
+   "cumulative_charges": 1419.4253182499997,
+   "reserve_months": 41.25613320199068,
+   "reserve_plus_common_years": 16.688162241042935
+  },
+  {
+   "claim": "STRD",
+   "cumulative_charges": 1559.6675182499996,
+   "reserve_months": 37.54646379101767,
+   "reserve_plus_common_years": 15.187595896449967
+  }
+ ],
+ "static_workbook": {
+  "charges": 1559.673002,
+  "reserve_months": 37.546331779102,
+  "years_reserve_plus_common": 15.1875424974497,
+  "gate_closed_years": 3.12886098159183,
+  "net_mnav": 1.17456717826807,
+  "path_ending_cash": 1525.073002,
+  "path_gross_common": 11106.430130151615,
+  "atm_zero_unmet": 9470.2928268501,
+  "source": "strategy-preferred-coverage-model docs/formula-verification.json (LibreOffice)"
+ },
+ "deterministic_engine_fail_years": {
+  "snapshot_gate_open": {
+   "a": 3.1288719825847915,
+   "b": 15.187595896449965,
+   "c": null
+  },
+  "snapshot_gate_closed_1.2x": {
+   "a": 3.1288719825847915,
+   "b": 3.1288719825847915,
+   "c": null
+  },
+  "path_principal_prefund": {
+   "a": 1.377240178684595,
+   "b": 10.958427458541044,
+   "c": null
+  }
+ },
+ "deterministic_static_path": {
+  "horizon_years": 4.963723477070499,
+  "ending_cash_tier_b": 1525.073002,
+  "gross_common_tier_b": 11113.369499876191,
+  "unmet_tier_a": 9477.16280287748
+ },
+ "interest_note": "Debt interest uses the 10-Q note schedule ($34.595m + $2m other = $36.595m/yr); the workbook uses the filed $17.3m semi-annual coupon (x2 + $2m = $36.6m). Difference $0.005m/yr."
+}

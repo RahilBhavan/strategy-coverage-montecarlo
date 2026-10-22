@@ -1,0 +1,28 @@
+# Verification record
+
+Purpose: record actual source, deterministic, stochastic and reproducibility checks, October 21, 2026 local time.
+
+## Commands exercised
+
+```bash
+python3 scripts/restore_data.py
+"$HOME/scratch/strategy-coverage-montecarlo/venv/bin/python" -m pytest -q
+"$HOME/scratch/strategy-coverage-montecarlo/venv/bin/python" -m mc.run --quick
+"$HOME/scratch/strategy-coverage-montecarlo/venv/bin/python" -m mc.run
+```
+
+**44 tests pass**, on Python 3.14.7, NumPy 2.5.4 and pytest 9.1.1. Quick and full runs completed; committed main results use 20,000 paths, seed 20261021. Sensitivities use 10,000 paths, the BTC/mNAV grid uses 2,000 per cell, and convergence uses eight seeds through 50,000 paths. Full analysis took about two minutes on this host. README dependency setup was exercised under scratch.
+
+The full analysis was run twice and all seven JSON outputs compared equal after removing the subsequently deleted, unused `strk_in_stock=false` metadata field from the earlier main result. A later histogram serialization correction was tested independently and regenerated with the same 20,000-path settings. Numeric probabilities did not change. A clean staged-file copy then restored all sources, passed 44 tests, reran the complete full analysis and reproduced all seven current result JSON files byte-for-byte. Exact repeatability is conditional on the pinned NumPy version and inputs; changing calibration or process rules changes results.
+
+Source tests check all cached raw hashes and parse Q2 note/preferred terms plus October filings/proxy. Market tests check actual date-selected closes, volume and historical return calculations. Recalibrating from frozen raw inputs exactly reproduced `data/derived/calibration.json` in this environment.
+
+Zero-volatility paths reproduce static reserve-only and reserve/common coverage using note-derived annual charges to floating-point precision. The independent saved workbook reference differs by about $0.005484 million annual debt interest due to rounding; reserve/common years differ by about 0.0000534 years. The quarterly/weekly path comparison checks ending cash within $0.000001 million and gross common/unmet funding within 0.5%, including $6,713.659 million put principal. The copied prior LibreOffice verification is not a fresh Excel execution.
+
+Behavior checks include empty reserves/ATM/BTC (immediate failure), exhausted common capacity, BTC sales, nonnegative balances, no issuance with nonpositive equity, gate closure, principal timing and put moneyness, same/different seeds, observed shock correlation, OU stationarity, historical bootstrap blocks, binomial simulation variability, invalid settings and reporting beyond the simulated horizon. First-passage histogram edges/counts are tested to partition observed failures and explicit censoring.
+
+## Corrections to partial work
+
+Fixed deterministic override collisions, integer-initialized money/BTC arrays, a deterministic test's `inf-inf` comparison, and histogram bins/censoring. Added run-boundary validation, explicit conditional-probability labels, strict CLI arguments and frozen standalone source restoration. Removed an unused stock-dividend election setting whose dilution was not implemented. The existing engine, calibration and research artifacts were reused.
+
+No corporate forecast validation, default-probability calibration, legal solvency model, independent venue-volume audit or live market integration is claimed. The short derived mNAV series uses a different definition from starting net mNAV; its parameter transfer is explicitly an assumption.

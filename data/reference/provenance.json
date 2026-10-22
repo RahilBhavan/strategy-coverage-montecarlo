@@ -1,0 +1,9 @@
+{
+ "source_repo": "/home/rahil/projects/strategy-preferred-coverage-model",
+ "source_commit": "096efc4c17c5df4f62f920a45b8a71aed9a546e9",
+ "copied_on": "2026-10-21",
+ "files": {
+  "formula-verification.json": "40d66ce87b064f1c903d68214d640caf3716ca2cc88bf6efe764dc9fd5431652",
+  "calculator.mjs": "45df77b987515b869db7cc5128dca7831396dc15d47247c5bb62f9273c5181ca"
+ }
+}

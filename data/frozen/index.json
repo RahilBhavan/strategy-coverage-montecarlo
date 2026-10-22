@@ -1,0 +1,182 @@
+[
+ {
+  "path": "data/raw/coinbase/btc-usd-daily.json",
+  "bytes": 257759,
+  "sha256": "2fe4b99995125d8f7a2879ddd838cd930434f743c0c56fc2fb00ac8aef8bbc67",
+  "parts": [
+   "000-000.gzpart",
+   "000-001.gzpart",
+   "000-002.gzpart",
+   "000-003.gzpart",
+   "000-004.gzpart",
+   "000-005.gzpart",
+   "000-006.gzpart"
+  ]
+ },
+ {
+  "path": "data/raw/coinbase/btc-usd-daily.json.meta.json",
+  "bytes": 2232,
+  "sha256": "8b69958d6eaaa1a8d0f896648cc1b8ffb17eeb39bff85a0da46735381b9110cd",
+  "parts": [
+   "001-000.gzpart"
+  ]
+ },
+ {
+  "path": "data/raw/dat-accretion/weekly.csv",
+  "bytes": 4785,
+  "sha256": "066cb51f90be1d8df12b388a3f57b336e4ad376879e6da1ef46dca69e536e6c9",
+  "parts": [
+   "002-000.gzpart"
+  ]
+ },
+ {
+  "path": "data/raw/dat-accretion/weekly.csv.meta.json",
+  "bytes": 418,
+  "sha256": "c995d6b78ea29531624141d681e6935f4a3ed038e08beb18668bdc4f3c3a2ed6",
+  "parts": [
+   "003-000.gzpart"
+  ]
+ },
+ {
+  "path": "data/raw/ecb/eurusd-daily.csv",
+  "bytes": 574901,
+  "sha256": "5777e8fdaa716f28e53e3496c6662fb6307517bc721e70fe073faccdafdf0f6f",
+  "parts": [
+   "004-000.gzpart"
+  ]
+ },
+ {
+  "path": "data/raw/ecb/eurusd-daily.csv.meta.json",
+  "bytes": 312,
+  "sha256": "ebbc80bd5313d3221c91c4b9f45e4515f695cd762accd9f2de78bf5f7806f390",
+  "parts": [
+   "005-000.gzpart"
+  ]
+ },
+ {
+  "path": "data/raw/edgar/10q-2026q2.htm",
+  "bytes": 2814743,
+  "sha256": "0a1f3e12246d199c66c0dc4b77a6d3f68a4c884af80fcc3af37977cf7cefc523",
+  "parts": [
+   "006-000.gzpart",
+   "006-001.gzpart",
+   "006-002.gzpart",
+   "006-003.gzpart",
+   "006-004.gzpart",
+   "006-005.gzpart",
+   "006-006.gzpart",
+   "006-007.gzpart",
+   "006-008.gzpart",
+   "006-009.gzpart",
+   "006-010.gzpart",
+   "006-011.gzpart",
+   "006-012.gzpart",
+   "006-013.gzpart"
+  ]
+ },
+ {
+  "path": "data/raw/edgar/10q-2026q2.htm.meta.json",
+  "bytes": 393,
+  "sha256": "64376f365e393bff498b293dbd4745c9e338e32b2cf2fe3ee0cda4f0be94676e",
+  "parts": [
+   "007-000.gzpart"
+  ]
+ },
+ {
+  "path": "data/raw/edgar/8k-2026-10-12-ex99_1.htm",
+  "bytes": 132395,
+  "sha256": "d292954e9c6d49ec4bf91c4d81290ee9542944079b004d9d93dc77f4cf4c692a",
+  "parts": [
+   "008-000.gzpart"
+  ]
+ },
+ {
+  "path": "data/raw/edgar/8k-2026-10-12-ex99_1.htm.meta.json",
+  "bytes": 386,
+  "sha256": "fc20396a3214b973781f211efa0b103e890c7b1f59781e7e7b28401f6bbb80e0",
+  "parts": [
+   "009-000.gzpart"
+  ]
+ },
+ {
+  "path": "data/raw/edgar/8k-2026-10-15-strc-rate.htm",
+  "bytes": 146178,
+  "sha256": "51d73a2674bbfafbfea0cc4e8926bd2bbe83196e61e4d7c20f5fad06fb628e6c",
+  "parts": [
+   "010-000.gzpart"
+  ]
+ },
+ {
+  "path": "data/raw/edgar/8k-2026-10-15-strc-rate.htm.meta.json",
+  "bytes": 392,
+  "sha256": "e3a2ef58db07b0eecc11bf88d11df66107625c6f6c182f3ff3cdc361580135ce",
+  "parts": [
+   "011-000.gzpart"
+  ]
+ },
+ {
+  "path": "data/raw/edgar/8k-2026-10-19.htm",
+  "bytes": 207323,
+  "sha256": "758fffb5bae03a2b52568ef75168f7fe710e41b46f1092e96fd72425865c99f3",
+  "parts": [
+   "012-000.gzpart"
+  ]
+ },
+ {
+  "path": "data/raw/edgar/8k-2026-10-19.htm.meta.json",
+  "bytes": 392,
+  "sha256": "93d8e54ef8337a1886f20a66f8dc0f10a2e084629cf883f4145c4dcf75e13442",
+  "parts": [
+   "013-000.gzpart"
+  ]
+ },
+ {
+  "path": "data/raw/edgar/def14a-2026-10-05.htm",
+  "bytes": 2064195,
+  "sha256": "0b206dbc1a2926c712d8ff607fb4ad651777e67eef7656c92cce6a981b26aa3c",
+  "parts": [
+   "014-000.gzpart",
+   "014-001.gzpart",
+   "014-002.gzpart",
+   "014-003.gzpart",
+   "014-004.gzpart",
+   "014-005.gzpart",
+   "014-006.gzpart",
+   "014-007.gzpart",
+   "014-008.gzpart",
+   "014-009.gzpart",
+   "014-010.gzpart",
+   "014-011.gzpart",
+   "014-012.gzpart",
+   "014-013.gzpart",
+   "014-014.gzpart"
+  ]
+ },
+ {
+  "path": "data/raw/edgar/def14a-2026-10-05.htm.meta.json",
+  "bytes": 395,
+  "sha256": "ae33cceb1a8a721d461817cd75d94f20b1e302c39655c149265a8e89443475a8",
+  "parts": [
+   "015-000.gzpart"
+  ]
+ },
+ {
+  "path": "data/raw/yahoo/mstr-daily.json",
+  "bytes": 184265,
+  "sha256": "37cf3151a8a4ef0adfb6ca4b48f76e5c9bd43495adf6513d52f9a9ee1ff5dfef",
+  "parts": [
+   "016-000.gzpart",
+   "016-001.gzpart",
+   "016-002.gzpart",
+   "016-003.gzpart"
+  ]
+ },
+ {
+  "path": "data/raw/yahoo/mstr-daily.json.meta.json",
+  "bytes": 346,
+  "sha256": "bbe0263245eb6bd1b4df8704486c6eae048a18cab4043762205c8576f19f0c38",
+  "parts": [
+   "017-000.gzpart"
+  ]
+ }
+]

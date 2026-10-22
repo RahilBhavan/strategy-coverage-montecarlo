@@ -1,0 +1,74 @@
+{
+ "btc": {
+  "window": [
+   "2016-01-01",
+   "2026-10-20"
+  ],
+  "weeks": 563,
+  "source": "data/raw/coinbase/btc-usd-daily.json",
+  "mean_log_return_annual": 0.4869687158985793,
+  "vol_annual": 0.6622741068826598,
+  "kurtosis_weekly": 5.447443448121128,
+  "worst_week": -0.392517102663696,
+  "best_week": 0.41410889899792735,
+  "vol_annual_last3y": 0.4681699658914688,
+  "all_time_high": {
+   "date": "2025-10-06",
+   "close": 124720.09
+  }
+ },
+ "mnav": {
+  "window": [
+   "2026-05-31",
+   "2026-10-11"
+  ],
+  "weeks": 20,
+  "source": "data/raw/dat-accretion/weekly.csv (column m)",
+  "kappa": 24.584115031573205,
+  "mean": 0.1056230866140207,
+  "sigma": 0.720231729836498,
+  "b": 0.6242817620183111,
+  "half_life_years": 0.028194920975180164,
+  "n": 19,
+  "resid_sd": 0.08024015985954747,
+  "long_run_level": 1.1114028949232946,
+  "rho_with_btc": -0.19356744000968745,
+  "corr_dlogm_dlogbtc": 0.006999212075379448,
+  "beta_dlogm_on_dlogbtc": 0.008554911319753621,
+  "geo_mean_level": 1.1380818927797907,
+  "sd_log": 0.11362545344791555,
+  "min": 0.983792,
+  "max": 1.421162,
+  "mean_level": 1.1452124,
+  "weeks_below_1x": 3
+ },
+ "adv": {
+  "window": [
+   "2024-08-12",
+   "2026-10-20"
+  ],
+  "weeks": 115,
+  "source": "data/raw/yahoo/mstr-daily.json",
+  "kappa": 19.535832566239165,
+  "mean": 2.8614692729761226,
+  "sigma": 2.371546103944408,
+  "b": 0.6876994640584303,
+  "half_life_years": 0.03548081087456734,
+  "n": 114,
+  "resid_sd": 0.27544477143647433,
+  "long_run_m_shares": 17.487201543113738,
+  "stationary_sd_log": 0.3794028700887078,
+  "rho_with_btc": 0.04051016896115354,
+  "adv20_2026_10_15": 22.002365
+ },
+ "eurusd": {
+  "window": [
+   "2016-01-08",
+   "2026-10-16"
+  ],
+  "weeks": 546,
+  "source": "data/raw/ecb/eurusd-daily.csv",
+  "vol_annual": 0.07176185365308244,
+  "rho_with_btc": 0.12049897851774892
+ }
+}
