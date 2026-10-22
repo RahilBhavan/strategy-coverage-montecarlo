@@ -10,14 +10,16 @@ def render():
     data = source['results']['gbm']
     n = source['n_paths']
     survivors = f"{data['c']['censored_share_20y']:.2%}"
+    b5 = sum(c for e, c in zip(data['b']['hist_edges'][1:], data['b']['hist_counts']) if e <= 5 + 1e-12) / n
+    headline = f"{b5:.2%}"
     svg = ['<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 900 600" role="img" aria-labelledby="title desc">',
-           f'<title id="title">BTC sales leave {survivors} of paths funded through 20 years</title>',
-           f'<desc id="desc">Conditional GBM funding exhaustion, including principal. Reserve-only and reserve plus common reach 100% exhaustion by 20 years. Adding BTC sales leaves {survivors} censored at 20 years. These are scenario simulations, not default estimates.</desc>',
+           f'<title id="title">{headline} of paths exhaust tier-b funding within 5 years</title>',
+           f'<desc id="desc">Conditional GBM funding exhaustion, including principal, for three funding tiers on the same paths. Tier b, reserve plus common ATM, exhausts in {headline} of paths within 5 years and in all paths by 20 years. Tier a, reserve only, exhausts in all paths. Tier c adds BTC sales and leaves {survivors} censored at 20 years. Funding exhaustion is not legal default; these are scenario simulations, not default estimates.</desc>',
            '<rect width="900" height="600" fill="#F5F5EF"/>',
            '<g font-family="IBM Plex Sans,Arial,sans-serif" fill="#111214">',
-           f'<text x="36" y="46" font-size="30" font-weight="bold">BTC sales leave {survivors} funded at 20 years</text>',
-           '<text x="36" y="78" font-size="22">Compare three funding tiers on the same simulated paths</text>',
-           '<text x="36" y="113" font-size="20" fill="#52545A">Share with first funding exhaustion • GBM, including principal</text>']
+           f'<text x="36" y="46" font-size="30" font-weight="bold">{headline} exhaust tier-b funding within 5 years</text>',
+           '<text x="36" y="78" font-size="22">Tier b = reserve + common ATM, on the same simulated paths as a and c</text>',
+           '<text x="36" y="113" font-size="20" fill="#52545A">Share with first funding exhaustion • GBM, including principal • not legal default</text>']
     x = lambda year: 92 + year / 20 * 754
     y = lambda p: 430 - p * 260
     for p in (0, .5, 1):
@@ -33,12 +35,18 @@ def render():
             cumulative += count / n
             d += f'H{x(edge):.2f}V{y(cumulative):.2f}'
         svg.append(f'<path d="{d}" fill="none" stroke="{color}" stroke-width="4" stroke-dasharray="{dash}"/>')
-        if tier == 'c':
-            svg.append(f'<path d="{d}" fill="none" stroke="#FFE500" stroke-width="2" stroke-dasharray="9 5"/>')
-    for xx, text, dash, color in [(92, 'Reserve only', '3 5', '#52545A'),
-                                  (317, '+ common ATM', '', '#111214'),
-                                  (603, '+ BTC sales', '9 5', '#52545A')]:
+        if tier == 'b':
+            svg.append(f'<path d="{d}" fill="none" stroke="#FFE500" stroke-width="1.5"/>')
+    svg.append(f'<circle cx="{x(5):.2f}" cy="{y(b5):.2f}" r="7" fill="#FFE500" stroke="#111214" stroke-width="2"/>')
+    svg.append(f'<text x="{x(5) + 14:.2f}" y="{y(b5) + 30:.2f}" font-size="20" font-weight="bold">{headline} by year 5</text>')
+    svg.append(f'<text x="846" y="{y(1 - data["c"]["censored_share_20y"]) - 10:.2f}" text-anchor="end" font-size="20" '
+               f'fill="#52545A">c: {survivors} still funded at 20 years (censored)</text>')
+    for xx, text, dash, color in [(92, 'a: reserve only', '3 5', '#52545A'),
+                                  (330, 'b: + common ATM', '', '#111214'),
+                                  (603, 'c: + BTC sales', '9 5', '#52545A')]:
         svg.append(f'<path d="M{xx} 141h38" stroke="{color}" stroke-width="4" stroke-dasharray="{dash}"/>')
+        if text.startswith('b'):
+            svg.append(f'<path d="M{xx} 141h38" stroke="#FFE500" stroke-width="1.5"/>')
         svg.append(f'<text x="{xx+48}" y="148" font-size="20">{text}</text>')
     svg.extend(['<text x="36" y="532" font-size="20">20,000 paths • seed 20261021 • frozen snapshot 2026-10-21</text>',
                 '<text x="36" y="559" font-size="20" fill="#52545A">Source: results/coverage_distribution.json • survives ≠ indefinite funding</text>',

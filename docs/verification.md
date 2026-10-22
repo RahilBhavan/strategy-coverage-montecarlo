@@ -1,14 +1,14 @@
 # Verification record
 
-Purpose: record actual source, deterministic, stochastic and reproducibility checks, October 21, 2026 local time.
+Purpose: record actual source, deterministic, stochastic and reproducibility checks, October 21, 2026 local time. Commands use a repository-local `.venv` built from `requirements.txt`; the historical records below ran in an equivalent venv under the author's scratch directory.
 
 ## Commands exercised
 
 ```bash
 python3 scripts/restore_data.py
-"$HOME/scratch/strategy-coverage-montecarlo/venv/bin/python" -m pytest -q
-"$HOME/scratch/strategy-coverage-montecarlo/venv/bin/python" -m mc.run --quick
-"$HOME/scratch/strategy-coverage-montecarlo/venv/bin/python" -m mc.run
+.venv/bin/python -m pytest -q
+.venv/bin/python -m mc.run --quick
+.venv/bin/python -m mc.run
 ```
 
 **44 tests pass**, on Python 3.14.7, NumPy 2.5.4 and pytest 9.1.1. Quick and full runs completed; committed main results use 20,000 paths, seed 20261021. Sensitivities use 10,000 paths, the BTC/mNAV grid uses 2,000 per cell, and convergence uses eight seeds through 50,000 paths. Full analysis took about two minutes on this host. README dependency setup was exercised under scratch.
@@ -64,3 +64,7 @@ analysis in 129 seconds and reproduced all seven JSON outputs, the SVG and the
 new sensitivity report **byte-for-byte**. A separate CLI report invocation also
 matched the committed report exactly. CI retains its existing portable tolerance;
 local strict verification did not require it.
+
+## Reader-test follow-up (October 22, 2026)
+
+`python -m mc.run --set key=value` (repeatable) changes any `mc.params.Params` field, validates it with the engine's run-boundary checks, and prints base and changed tier probabilities on the same seed with binomial and paired SEs. It writes nothing. `participation=0.05` moved five-year tier-b exhaustion from 46.24% to 40.29% (20,000 paths). `tests/test_whatif.py` adds 15 tests (80 total): type coercion, unknown keys listing valid keys, invalid values, paired identity when nothing changes, no writes, exit code 2 and the README sample. The figure now leads with the same five-year tier-b value as the README headline; `scripts/readme_headline.py --check` (in CI) fails if the README headline drifts from `results/main.json`. Model math and the seven result JSON files are unchanged; only the SVG bytes changed.

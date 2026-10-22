@@ -31,16 +31,16 @@ that larger obligations always improve coverage.
 
 ## Reproduce in five minutes
 
-From the repository root, after the README's pinned environment setup:
+From the repository root, after the README's pinned environment setup (repository-local `.venv`):
 
 ```bash
 python3 scripts/restore_data.py
-"$HOME/scratch/strategy-coverage-montecarlo/venv/bin/python" -m pytest -q tests/test_sensitivity.py
-"$HOME/scratch/strategy-coverage-montecarlo/venv/bin/python" -m mc.sensitivity \
+.venv/bin/python -m pytest -q tests/test_sensitivity.py
+.venv/bin/python -m mc.sensitivity \
   --paths 4000 --seed 20261021 \
-  --output "$HOME/scratch/strategy-coverage-montecarlo/sensitivity-example.json"
-"$HOME/scratch/strategy-coverage-montecarlo/venv/bin/python" -c \
-  'from pathlib import Path; import os; assert Path("reports/assumption_sensitivity.json").read_bytes() == (Path(os.environ["HOME"])/"scratch/strategy-coverage-montecarlo/sensitivity-example.json").read_bytes(); print("Exact report match")'
+  --output "${TMPDIR:-/tmp}/sensitivity-example.json"
+.venv/bin/python -c \
+  'from pathlib import Path; import os; assert Path("reports/assumption_sensitivity.json").read_bytes() == (Path(os.environ.get("TMPDIR", "/tmp"))/"sensitivity-example.json").read_bytes(); print("Exact report match")'
 ```
 
 Measured October 22, 2026 on the original Linux host: default report 9.95 seconds,

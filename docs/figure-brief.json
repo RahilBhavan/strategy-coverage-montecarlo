@@ -3,11 +3,11 @@
   "set": "coverage-model",
   "template": "rahil-design-light-figure",
   "reader": "Engineer or recruiter inspecting the research README",
-  "decision": "Understand how funding sources change the conditional first-passage distribution",
-  "point": "BTC sales leave 61.41% of modeled paths funded through 20 years, versus none with only reserve and common ATM",
+  "decision": "See how often the reserve plus common ATM tier exhausts within five years, and how the other tiers compare",
+  "point": "46.24% of modeled paths exhaust tier-b funding (reserve + common ATM) within 5 years; BTC sales (tier c) leave 61.41% funded at 20 years",
   "comparison": "Three modeled funding tiers on the same GBM paths",
-  "title": "BTC sales leave 61.41% funded at 20 years",
-  "subtitle": "Compare three funding tiers on the same simulated paths",
+  "title": "46.24% exhaust tier-b funding within 5 years",
+  "subtitle": "Tier b = reserve + common ATM, on the same simulated paths as a and c",
   "caption": "Conditional scenarios; model and parameter error are not shown.",
   "form": "step",
   "values_count": 120,
@@ -41,17 +41,18 @@
       "as_of": "2026-10-21"
     }
   ],
-  "alt": "61.41% of GBM tier-c paths remain funded at 20 years; reserve-only and reserve plus common reach 100% exhaustion under the scenario rules.",
+  "alt": "46.24% of GBM paths exhaust tier-b funding (reserve plus common ATM) within 5 years and all do by 20 years; reserve-only exhausts in every path; adding BTC sales leaves 61.41% funded at 20 years. Funding exhaustion is not legal default.",
   "sizes_checked": [
-    "900x600"
+    "900x600",
+    "400x267"
   ],
   "feed_width_viewed": true,
   "min_label_px": 20,
   "point_px": 30,
   "five_second_test": {
     "by": "agent",
-    "date": "2026-10-21",
-    "said": "Adding BTC sales leaves a censored survivor tail; two lesser funding tiers exhaust",
+    "date": "2026-10-22",
+    "said": "About 46% of paths run out of reserve-plus-ATM funding by year 5; BTC sales keep most paths funded longer",
     "result": "pass"
   },
   "attached_in": {

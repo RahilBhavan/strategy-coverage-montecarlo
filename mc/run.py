@@ -2,6 +2,7 @@
 
     python -m mc.run            # full run (about 3 minutes)
     python -m mc.run --quick    # fewer paths, for a smoke test
+    python -m mc.run --set participation=0.05   # change settings; print base vs changed, write nothing
 """
 from __future__ import annotations
 
@@ -219,7 +220,20 @@ def main(quick: bool = False) -> None:
 
 if __name__ == "__main__":
     import argparse
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--quick", action="store_true")
+    from . import whatif
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("--quick", action="store_true", help="fewer paths; with --set, use 2,000 paths")
+    parser.add_argument("--set", dest="overrides", action="append", default=[], metavar="KEY=VALUE",
+                        help="change one mc.params.Params setting (repeatable); prints results, writes nothing. "
+                             "Valid keys: " + ", ".join(whatif.settable()))
     args = parser.parse_args()
-    main(quick=args.quick)
+    if args.overrides:
+        pairs = (["n_paths=2000"] if args.quick and not any(p.startswith("n_paths=") for p in args.overrides)
+                 else []) + args.overrides
+        try:
+            settings = whatif.parse(pairs)
+        except ValueError as exc:
+            parser.error(str(exc))
+        print(whatif.report(whatif.compare(settings)))
+    else:
+        main(quick=args.quick)
