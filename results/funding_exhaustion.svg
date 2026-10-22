@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 900 600" role="img" aria-labelledby="title desc">
+<title id="title">BTC sales leave 61.41% of paths funded through 20 years</title>
+<desc id="desc">Conditional GBM funding exhaustion, including principal. Reserve-only and reserve plus common reach 100% exhaustion by 20 years. Adding BTC sales leaves 61.41% censored at 20 years. These are scenario simulations, not default estimates.</desc>
+<rect width="900" height="600" fill="#F5F5EF"/>
+<g font-family="IBM Plex Sans,Arial,sans-serif" fill="#111214">
+<text x="36" y="46" font-size="30" font-weight="bold">BTC sales leave 61.41% funded at 20 years</text>
+<text x="36" y="78" font-size="22">Compare three funding tiers on the same simulated paths</text>
+<text x="36" y="113" font-size="20" fill="#52545A">Share with first funding exhaustion • GBM, including principal</text>
+<path d="M92 430H846" stroke="#C6C7BF" fill="none"/>
+<text x="78" y="437" text-anchor="end" font-size="20">0%</text>
+<path d="M92 300.0H846" stroke="#C6C7BF" fill="none"/>
+<text x="78" y="307.0" text-anchor="end" font-size="20">50%</text>
+<path d="M92 170H846" stroke="#C6C7BF" fill="none"/>
+<text x="78" y="177" text-anchor="end" font-size="20">100%</text>
+<text x="92.0" y="461" text-anchor="middle" font-size="20">0</text>
+<text x="280.5" y="461" text-anchor="middle" font-size="20">5</text>
+<text x="469.0" y="461" text-anchor="middle" font-size="20">10</text>
+<text x="657.5" y="461" text-anchor="middle" font-size="20">15</text>
+<text x="846.0" y="461" text-anchor="middle" font-size="20">20</text>
+<text x="469" y="492" text-anchor="middle" font-size="20">Years from modeled start • half-year bins</text>
+<path d="M92.0 430H110.85V430.00H129.70V430.00H148.55V279.38H167.40V213.58H186.25V197.66H205.10V196.10H223.95V170.00H242.80V170.00H261.65V170.00H280.50V170.00H299.35V170.00H318.20V170.00H337.05V170.00H355.90V170.00H374.75V170.00H393.60V170.00H412.45V170.00H431.30V170.00H450.15V170.00H469.00V170.00H487.85V170.00H506.70V170.00H525.55V170.00H544.40V170.00H563.25V170.00H582.10V170.00H600.95V170.00H619.80V170.00H638.65V170.00H657.50V170.00H676.35V170.00H695.20V170.00H714.05V170.00H732.90V170.00H751.75V170.00H770.60V170.00H789.45V170.00H808.30V170.00H827.15V170.00H846.00V170.00" fill="none" stroke="#52545A" stroke-width="4" stroke-dasharray="3 5"/>
+<path d="M92.0 430H110.85V430.00H129.70V430.00H148.55V414.11H167.40V358.68H186.25V351.35H205.10V337.83H223.95V329.43H242.80V322.58H261.65V314.85H280.50V309.78H299.35V305.15H318.20V299.09H337.05V295.20H355.90V291.28H374.75V288.21H393.60V285.04H412.45V282.38H431.30V279.80H450.15V277.42H469.00V275.18H487.85V272.92H506.70V260.41H525.55V246.43H544.40V234.31H563.25V218.22H582.10V206.61H600.95V199.03H619.80V195.73H638.65V188.02H657.50V185.76H676.35V170.60H695.20V170.00H714.05V170.00H732.90V170.00H751.75V170.00H770.60V170.00H789.45V170.00H808.30V170.00H827.15V170.00H846.00V170.00" fill="none" stroke="#111214" stroke-width="4" stroke-dasharray=""/>
+<path d="M92.0 430H110.85V430.00H129.70V430.00H148.55V430.00H167.40V429.86H186.25V429.71H205.10V428.78H223.95V427.82H242.80V426.57H261.65V424.98H280.50V422.79H299.35V419.89H318.20V417.16H337.05V413.63H355.90V409.93H374.75V405.91H393.60V402.36H412.45V398.49H431.30V394.64H450.15V390.99H469.00V387.31H487.85V383.82H506.70V380.05H525.55V376.80H544.40V373.46H563.25V369.78H582.10V366.60H600.95V363.62H619.80V360.46H638.65V357.28H657.50V354.53H676.35V351.83H695.20V349.26H714.05V346.79H732.90V344.28H751.75V341.70H770.60V339.35H789.45V336.74H808.30V334.24H827.15V332.16H846.00V329.67" fill="none" stroke="#52545A" stroke-width="4" stroke-dasharray="9 5"/>
+<path d="M92.0 430H110.85V430.00H129.70V430.00H148.55V430.00H167.40V429.86H186.25V429.71H205.10V428.78H223.95V427.82H242.80V426.57H261.65V424.98H280.50V422.79H299.35V419.89H318.20V417.16H337.05V413.63H355.90V409.93H374.75V405.91H393.60V402.36H412.45V398.49H431.30V394.64H450.15V390.99H469.00V387.31H487.85V383.82H506.70V380.05H525.55V376.80H544.40V373.46H563.25V369.78H582.10V366.60H600.95V363.62H619.80V360.46H638.65V357.28H657.50V354.53H676.35V351.83H695.20V349.26H714.05V346.79H732.90V344.28H751.75V341.70H770.60V339.35H789.45V336.74H808.30V334.24H827.15V332.16H846.00V329.67" fill="none" stroke="#FFE500" stroke-width="2" stroke-dasharray="9 5"/>
+<path d="M92 141h38" stroke="#52545A" stroke-width="4" stroke-dasharray="3 5"/>
+<text x="140" y="148" font-size="20">Reserve only</text>
+<path d="M317 141h38" stroke="#111214" stroke-width="4" stroke-dasharray=""/>
+<text x="365" y="148" font-size="20">+ common ATM</text>
+<path d="M603 141h38" stroke="#52545A" stroke-width="4" stroke-dasharray="9 5"/>
+<text x="651" y="148" font-size="20">+ BTC sales</text>
+<text x="36" y="532" font-size="20">20,000 paths • seed 20261021 • frozen snapshot 2026-10-21</text>
+<text x="36" y="559" font-size="20" fill="#52545A">Source: results/coverage_distribution.json • survives ≠ indefinite funding</text>
+<text x="36" y="586" font-size="20" fill="#52545A">Conditional scenarios; model and parameter error are not shown.</text>
+</g></svg>

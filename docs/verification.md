@@ -26,3 +26,13 @@ Behavior checks include empty reserves/ATM/BTC (immediate failure), exhausted co
 Fixed deterministic override collisions, integer-initialized money/BTC arrays, a deterministic test's `inf-inf` comparison, and histogram bins/censoring. Added run-boundary validation, explicit conditional-probability labels, strict CLI arguments and frozen standalone source restoration. Removed an unused stock-dividend election setting whose dilution was not implemented. The existing engine, calibration and research artifacts were reused.
 
 No corporate forecast validation, default-probability calibration, legal solvency model, independent venue-volume audit or live market integration is claimed. The short derived mNAV series uses a different definition from starting net mNAV; its parameter transfer is explicitly an assumption.
+
+## Publication review verification
+
+After the original v1 record above, the review repaired principal valuation, integer share handling, horizon coverage and principal-due naming. **54 tests now pass** in a newly created scratch venv installed only from `requirements.txt`, with Python 3.14.7 / NumPy 2.5.4 / pytest 9.1.1. No configured static type checker applies to this Python repository.
+
+A tracked-source scratch copy restored 18 files without sibling repositories, passed the then-current 53-test suite, and ran the full analysis in 144 seconds. All seven regenerated JSON files matched byte-for-byte. A subsequent cap-binding regression brought the suite to 54; it changes no numerical code. The remote-clone and CI evidence is recorded in [publication.md](publication.md).
+
+`python scripts/verify_reproduction.py` reruns the full analysis and figure generator, then compares all seven JSON files and the SVG with their starting bytes. CI uses this behavioral check after restoration and tests; it requires no source-network access, credentials or paid services. Only dependency installation and GitHub runner setup need the network. Actions are pinned to immutable commits, Python and direct dependencies to exact versions, the runner to Ubuntu 24.04, with `contents: read` permission and no schedule.
+
+The figure is generated from the GBM first-passage histogram in `results/coverage_distribution.json`, with shared linear axes and explicit 20-year censoring. Its brief passed the present-data checker; the two warnings are a 30px headline below social-card guidance and an agent-only reader test. The 900px SVG is a zoomable documentation artifact, not a social card. Browser inspection covered full width and 400px; labels use IBM Plex Sans when available with Arial/sans-serif fallback. The figure is not a confidence band or parameter-uncertainty estimate.

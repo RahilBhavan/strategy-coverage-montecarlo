@@ -29,3 +29,11 @@ First failure is the first weekly shortfall, fractionally interpolated within th
 ## Important exclusions
 
 No corporate operating cash flow, BTC purchase program, issuance-demand curve, tax treatment, new preferreds, new debt, new ATM registration, insolvency process or legal payment-priority model. The seniority snapshot cumulates charges as a comparison; the stochastic engine does not distribute recoveries. Optional non-reserve cash funding is a sensitivity. STRK cash dividends are retained; a stock-dividend election model is not implemented. STRD is accrued in modeled charges even though its noncumulative dividends may be omitted under its terms. The daily-dividend proposal is not a modeled enacted change.
+
+## Review clarifications
+
+Cash principal due remains a claim in the pre-issuance valuation until the same step's cash waterfall funds it. Removing a note from the outstanding schedule does not create equity. The snapshot field `principal_due` records cash obligations triggered, including amounts left unfunded; it replaces the misleading v1 name `principal_paid`. No payment-priority allocation is inferred from this field.
+
+Runs now cover the whole requested horizon by rounding **up** to a weekly boundary. Summary probabilities compare interpolated failure times with the exact requested year. Snapshots are states at the first weekly boundary on or after their label, up to seven days later. This is still a weekly approximation, especially for lump payments.
+
+The October 21 analysis deliberately calibrates through October 20 even though the static-comparison ledger starts October 16 (and the refreshed ledger October 19). It is a retrospective snapshot scenario, **not** an out-of-sample backtest or a forecast available at those earlier start dates. Within simulated paths, puts/conversions and principal pre-funding use prior-week prices and known schedules, never future simulated shocks. ADV's final calibration week is partial; FX Friday sampling can span holiday gaps. These are parameter-estimation limitations.

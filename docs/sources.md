@@ -2,7 +2,7 @@
 
 Purpose: distinguish observed corporate facts, historical calibration and assumed financing policy.
 
-Cutoff: October 21, 2026 America/Detroit. Retrieval timestamps may be October 22 UTC, the same local evening. Primary SEC pages were reopened during this continuation; real-source tests re-parse the frozen filings and check source-byte SHA-256. Direct EDGAR fetching previously returned HTTP 403, so those original responses were copied byte-for-byte from sibling caches. Sidecars retain original URL, sibling path and available retrieval time. No claim of a fresh successful Python EDGAR download is made.
+Cutoff: October 21, 2026 America/Detroit. Retrieval timestamps may be October 22 UTC, the same local evening. Primary SEC pages were reopened during the original v1 work; this publication pass used the frozen bytes only; real-source tests re-parse the frozen filings and check source-byte SHA-256. Direct EDGAR fetching previously returned HTTP 403, so those original responses were copied byte-for-byte from sibling caches. Sidecars retain original URL, sibling path and available retrieval time. No claim of a fresh successful Python EDGAR download is made.
 
 ## Corporate filings
 
@@ -31,3 +31,5 @@ Twenty dat-accretion weekly `m` values (May 31–October 11, 2026) are a **deriv
 ## Frozen reproducibility
 
 Eighteen raw files, including provenance sidecars, restore offline from `data/frozen/`. Its index supplies original paths, byte lengths and SHA-256. Compressed pieces are <=16 KB so no staged file exceeds 5,000 tokens. The restoration script rejects changed existing sources rather than silently replacing them. Analysis requires no reads from sibling repos once restored. New fetching is optional, not part of the reported run.
+
+The frozen files contain public corporate filings, public venue/reference market histories and Rahil’s derived weekly dataset. The repository adds no license grant over those third-party materials. Their providers retain applicable rights and usage terms; reproduction here does not imply permission for unrestricted commercial redistribution. Public filing contact information is corporate source content, not private user account data.
