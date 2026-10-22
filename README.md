@@ -1,5 +1,7 @@
 # Strategy coverage Monte Carlo: conditional funding exhaustion across three source tiers
 
+[![Offline model verification](https://github.com/RahilBhavan/strategy-coverage-montecarlo/actions/workflows/ci.yml/badge.svg)](https://github.com/RahilBhavan/strategy-coverage-montecarlo/actions/workflows/ci.yml)
+
 ![BTC sales leave 61.41% of GBM paths funded through 20 years; reserve-only and reserve plus common exhaust by 20 years under the modeled rules.](results/funding_exhaustion.svg)
 
 This Python model extends the existing static preferred-coverage workbook into weekly BTC, mNAV, trading-volume and EUR/USD paths. It first reproduces the static result, then tracks the first time each funding waterfall cannot meet modeled charges. Its probabilities are conditional on chosen processes and financing rules; they are not Strategy default forecasts.
@@ -63,7 +65,7 @@ The full run writes `results/*.json` and took about three minutes on this host. 
 - Annual BTC volatility uses history; the projected log drift is assumed zero. The 20-week mNAV sample is weak evidence. mNAV shock correlation is assumed zero in the base case; the BTC-level link still correlates paths. Sensitivities vary both.
 - Weekly accrual is not a dividend/coupon payment calendar. The October 28 daily-dividend vote remains pending on October 21; no amendment is treated as enacted.
 - Starting inputs mix observation dates and estimates. No operating cash flow, new preferred issuance, new debt/ATM program, taxes, balance-sheet strategy response or BTC repurchases are modeled. Default runs exclude non-reserve USD cash from funding.
-- Note puts use a prior-week moneyness rule; maturity conversion and dilution are scenarios, not observed holder/company decisions. No make-whole or path-dependent conversion tests.
+- Note puts use a prior-week moneyness rule; maturity conversion and dilution are scenarios, not observed holder/company decisions. No make-whole adjustments or contractual path-dependent conversion eligibility rules are modeled.
 - Calibration uses the October 21 snapshot, including observations after the October 16 static-comparison start. This is retrospective scenario analysis, not an out-of-sample backtest.
 - Binomial standard errors describe simulation noise only. They omit parameter, model and data error; zero observed failures does not prove zero risk. Twenty-year survivors are censored, not infinitely funded.
 
