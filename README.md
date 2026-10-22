@@ -75,6 +75,6 @@ The full run writes `results/*.json` and took about three minutes on this host. 
 
 ## License
 
-No license file yet. Third-party source material retains its own rights.
+[MIT](LICENSE). The license covers this project's code only. Third-party source material retains its own rights.
 
 Part of [Rahil Bhavan's projects](https://github.com/RahilBhavan).

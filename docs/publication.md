@@ -27,3 +27,7 @@ Four demonstrated issues were repaired: principal settlement valuation, integer 
 Before the initial push, current tracked/new files and all reachable Git-history blobs were inspected, including decoding all 18 compressed snapshot entries. The final scan then covered 119 reachable blobs, largest 16,000 bytes; no credential-pattern match or private account/hub artifact was found. Subsequent commits contain only reviewed source/tests/docs. Public filing contact details and public author/provenance metadata are retained. Hooks ran; no staged file exceeded 20,000 bytes. This was a bounded review, not a security certification.
 
 Remaining limits include weak and definition-mismatched mNAV calibration, retrospective mixed observation dates, weekly timing approximations and unmeasured model/parameter error. Probabilities describe conditional funding exhaustion, not default. No license file yet; third-party material retains its rights. No website deployment, trades, messages or recurring services were created.
+
+## Update 2026-10-22: license
+
+The MIT license was added in `LICENSE`. It covers this project's code only. Earlier statements in this record that no license file existed describe the state at publication.
