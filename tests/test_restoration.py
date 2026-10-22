@@ -43,4 +43,13 @@ def test_reference_copies_still_match_original_provenance():
 def test_frozen_calibration_is_reproducible():
     from mc import history
     expected = json.loads((ROOT / 'data/derived/calibration.json').read_text())
-    assert history.calibrate() == expected
+    actual = history.calibrate()
+    assert actual.keys() == expected.keys()
+    for group, fields in expected.items():
+        assert actual[group].keys() == fields.keys()
+        for name, value in fields.items():
+            # OLS/correlation reductions vary by a few ulps across BLAS/CPU builds.
+            if isinstance(value, float):
+                assert actual[group][name] == pytest.approx(value, rel=1e-12, abs=1e-14)
+            else:
+                assert actual[group][name] == value
