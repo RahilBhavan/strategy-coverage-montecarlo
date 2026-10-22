@@ -4,9 +4,9 @@
   "template": "rahil-design-light-figure",
   "reader": "Engineer or recruiter inspecting the research README",
   "decision": "See how often the reserve plus common ATM tier exhausts within five years, and how the other tiers compare",
-  "point": "46.24% of modeled paths exhaust tier-b funding (reserve + common ATM) within 5 years; BTC sales (tier c) leave 61.41% funded at 20 years",
+  "point": "The share of modeled paths that exhaust tier-b funding (reserve + common ATM) within 5 years, and the share that BTC sales (tier c) leave funded at 20 years",
   "comparison": "Three modeled funding tiers on the same GBM paths",
-  "title": "46.24% exhaust tier-b funding within 5 years",
+  "title": "[tier-b five-year share, redacted from docs] exhaust tier-b funding within 5 years",
   "subtitle": "Tier b = reserve + common ATM, on the same simulated paths as a and c",
   "caption": "Conditional scenarios; model and parameter error are not shown.",
   "form": "step",
@@ -41,7 +41,7 @@
       "as_of": "2026-10-21"
     }
   ],
-  "alt": "46.24% of GBM paths exhaust tier-b funding (reserve plus common ATM) within 5 years and all do by 20 years; reserve-only exhausts in every path; adding BTC sales leaves 61.41% funded at 20 years. Funding exhaustion is not legal default.",
+  "alt": "Cumulative share of GBM paths with first funding exhaustion over 20 years for three tiers. Reserve-only exhausts in every path; tier b, reserve plus common ATM, exhausts in all paths by 20 years; adding BTC sales leaves some paths funded and censored at 20 years. Funding exhaustion is not legal default.",
   "sizes_checked": [
     "900x600",
     "400x267"
@@ -52,18 +52,19 @@
   "five_second_test": {
     "by": "agent",
     "date": "2026-10-22",
-    "said": "About 46% of paths run out of reserve-plus-ATM funding by year 5; BTC sales keep most paths funded longer",
+    "said": "About [tier-b five-year share, redacted from docs] of paths run out of reserve-plus-ATM funding by year 5; BTC sales keep most paths funded longer",
     "result": "pass"
   },
   "attached_in": {
-    "post": "README.md",
+    "post": null,
     "image": "results/funding_exhaustion.svg"
   },
   "warn_reasons": {
     "point size below social-card recommendation": "This is a zoomable README SVG at 900x600; the point is 30px at export size. At 400px, readers can open the figure and read parallel README text.",
     "agent reader test": "No independent human reader test was available.",
     "five-second test": "Agent self-test only. No independent human comprehension study or feed-readability claim is made.",
-    "the point renders": "This is an openable README SVG, not a feed card; the 30px native headline and parallel README text retain the point. Narrow previews require opening the artifact."
+    "the point renders": "This is an openable README SVG, not a feed card; the 30px native headline and parallel README text retain the point. Narrow previews require opening the artifact.",
+    "not embedded": "Since 2026-10-22 the README is a methods piece and does not embed this figure; the brief keeps result values out of docs/ and the SVG title renders them from results/."
   },
   "contrast_min": 6.916424911441444
 }
