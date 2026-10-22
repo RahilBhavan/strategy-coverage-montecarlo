@@ -62,3 +62,10 @@ def test_first_passage_histogram_partitions_failures_and_censoring():
     assert d['censored_count'] == 2
     assert sum(d['hist_counts']) + d['censored_count'] == 6
     assert d['censored_share_20y'] == pytest.approx(1/3)
+
+
+def test_integer_share_count_supports_fractional_issuance():
+    inp = replace(inputs.base(), basic_shares_m=422)
+    p = params.default(n_paths=1, horizon_years=7/365.25)
+    s = engine.run(inp, p, record_years=(p.horizon_years,))['snapshots'][p.horizon_years]
+    assert s['shares'][1, 0] > 422

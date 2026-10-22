@@ -28,7 +28,7 @@ def run(inp: Inputs, p: Params, record_years: tuple = HORIZONS) -> dict:
     n = p.n_paths
     m0 = inp.net_mnav() if p.mnav_start is None else p.mnav_start
     mkt = Market(p, inp.btc_price, m0, inp.adv_m, inp.eurusd, rng, n)
-    steps = int(round(p.horizon_years / DT))
+    steps = int(math.ceil(p.horizon_years / DT - 1e-12))
     T = len(TIERS)
     allow_common = np.array([0.0, 1.0, 1.0])[:, None]
     allow_btc = np.array([False, False, True])[:, None]
@@ -36,7 +36,7 @@ def run(inp: Inputs, p: Params, record_years: tuple = HORIZONS) -> dict:
     R = np.full((T, n), inp.reserve + (inp.usd_cash if p.include_usd_cash else 0.0), dtype=float)
     usd_cash_nv = 0.0 if p.include_usd_cash else inp.usd_cash
     A = np.full((T, n), inp.atm_remaining if p.atm_binding else np.inf, dtype=float)
-    S = np.full((T, n), inp.basic_shares_m)
+    S = np.full((T, n), inp.basic_shares_m, dtype=float)
     B = np.full((T, n), inp.btc_held, dtype=float)
     notes = inp.notes
     J = len(notes)
@@ -50,7 +50,7 @@ def run(inp: Inputs, p: Params, record_years: tuple = HORIZONS) -> dict:
     unmet = np.zeros((T, n))
     issued = np.zeros((T, n))
     btc_sold = np.zeros((T, n))
-    principal_paid = np.zeros((T, n))
+    principal_due = np.zeros((T, n))
     gate_closed_weeks = np.zeros(n)
 
     rates = dict(inp.rates)
@@ -59,7 +59,7 @@ def run(inp: Inputs, p: Params, record_years: tuple = HORIZONS) -> dict:
     usd_pref_div = sum(v * rates[k] for k, v in inp.pref_usd.items())
     usd_pref_claims = sum(inp.pref_usd.values())
     snaps = {}
-    record_steps = {int(round(y / DT)): y for y in record_years}
+    record_steps = {int(math.ceil(y / DT - 1e-12)): y for y in record_years}
 
     for k in range(steps):
         d0 = inp.start + dt.timedelta(days=7 * k)
@@ -72,6 +72,7 @@ def run(inp: Inputs, p: Params, record_years: tuple = HORIZONS) -> dict:
         pref = (usd_pref_div + inp.stre_eur * fx * rates["STRE"]) * DT
         interest = (out * (prin * coup)).sum(axis=2) * DT + inp.other_debt_interest * DT
         need = pref[None, :] + interest
+        cash_principal = np.zeros((T, n))
 
         # principal events; moneyness uses the prior week's share price
         if p.principal:
@@ -80,13 +81,15 @@ def run(inp: Inputs, p: Params, record_years: tuple = HORIZONS) -> dict:
                 if d0 < note.put <= d1:
                     put = out[:, :, j] & (otm if p.put_rule == "rational" else True)
                     need = need + put * prin[j]
-                    principal_paid += put * prin[j]
+                    cash_principal += put * prin[j]
+                    principal_due += put * prin[j]
                     out[:, :, j] &= ~put
                 if d0 < note.maturity <= d1:
                     live = out[:, :, j]
                     cash = live & otm
                     need = need + cash * prin[j]
-                    principal_paid += cash * prin[j]
+                    cash_principal += cash * prin[j]
+                    principal_due += cash * prin[j]
                     S += (live & ~otm) * (prin[j] / conv[j])
                     out[:, :, j] = False
 
@@ -95,7 +98,8 @@ def run(inp: Inputs, p: Params, record_years: tuple = HORIZONS) -> dict:
         otm_claims = (out & ~itm) * prin
         strk_itm = prev_price >= inp.strk_conversion_price
         pref_claims = usd_pref_claims + inp.stre_eur * fx[None, :] - strk_itm * inp.pref_usd["STRK"]
-        nv = B * P[None, :] / 1e6 + R + usd_cash_nv - otm_claims.sum(axis=2) - pref_claims
+        # A removed cash-settled note still consumes cash in this waterfall step.
+        nv = B * P[None, :] / 1e6 + R + usd_cash_nv - otm_claims.sum(axis=2) - pref_claims - cash_principal
         fd = S + inp.awards_m + (itm * (prin / conv)).sum(axis=2) + strk_itm * (inp.pref_usd["STRK"] /
                                                                               inp.strk_conversion_price)
         price = np.maximum(0.0, m[None, :] * nv / fd)
@@ -145,7 +149,7 @@ def run(inp: Inputs, p: Params, record_years: tuple = HORIZONS) -> dict:
             y = record_steps[k + 1]
             snaps[y] = {"reserve": R.copy(), "atm": A.copy(), "shares": S.copy(), "btc": B.copy(),
                         "issued": issued.copy(), "btc_sold": btc_sold.copy(), "unmet": unmet.copy(),
-                        "principal_paid": principal_paid.copy(), "btc_price": P.copy(), "mnav": m.copy(),
+                        "principal_due": principal_due.copy(), "btc_price": P.copy(), "mnav": m.copy(),
                         "gate_closed_share": gate_closed_weeks / (k + 1)}
 
     return {"fail_years": fail, "snapshots": snaps, "steps": steps, "params": p, "inputs": inp.label}
@@ -153,7 +157,7 @@ def run(inp: Inputs, p: Params, record_years: tuple = HORIZONS) -> dict:
 
 def summarize(res: dict, horizons=HORIZONS) -> dict:
     """P(first failure within each horizon) with binomial standard errors, per tier."""
-    if any(h <= 0 or h > res["steps"] * DT + DT / 2 for h in horizons):
+    if any(h <= 0 or h > res["steps"] * DT + 1e-12 for h in horizons):
         raise ValueError("summary horizons must be within the simulated horizon")
     f = res["fail_years"]
     n = f.shape[1]

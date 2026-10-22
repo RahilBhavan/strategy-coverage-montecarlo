@@ -78,7 +78,7 @@
  "deterministic_static_path": {
   "horizon_years": 4.963723477070499,
   "ending_cash_tier_b": 1525.073002,
-  "gross_common_tier_b": 11113.369499876191,
+  "gross_common_tier_b": 11113.369499876193,
   "unmet_tier_a": 9477.16280287748
  },
  "interest_note": "Debt interest uses the 10-Q note schedule ($34.595m + $2m other = $36.595m/yr); the workbook uses the filed $17.3m semi-annual coupon (x2 + $2m = $36.6m). Difference $0.005m/yr."
