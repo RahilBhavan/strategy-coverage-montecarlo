@@ -1,6 +1,8 @@
 # Documentation
 
 - [Specification](spec.md): original v1 scope and authorized publication continuation.
+- [Improvement plan](improvement-plan.md): sensitivity slice and falsifiable acceptance.
+- [Assumption sensitivity](assumption-sensitivity.md): paired report, known answers, provenance and reproduction.
 - [Methodology](methodology.md): processes, funding rules, timing and uncertainty.
 - [Sources](sources.md): dated facts, estimated bridges and frozen provenance.
 - [Correctness review](review.md): failing examples, repairs and remaining limits.

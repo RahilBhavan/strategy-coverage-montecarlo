@@ -1,0 +1,561 @@
+{
+ "schema_version": 1,
+ "as_of": "2026-10-21",
+ "metric": "Tier b first funding exhaustion within 5 years; conditional, not default probability",
+ "uncertainty": {
+  "simulation": "mc_se and mc_wilson_95 condition on each scenario; paired_mc_se uses common GBM draws",
+  "parameter": "Not estimated. Endpoint spread is assumption sensitivity, not a confidence or credible interval",
+  "ranking": "Maximum absolute change over selected endpoints; one-at-a-time, no interactions or global attribution"
+ },
+ "provenance": {
+  "sha256": {
+   "data/derived/calibration.json": "e7271c2333eb4d6ff3b7331eaaa80c56fefb30c3fd0c574194892fcc8b72d523",
+   "data/frozen/index.json": "bff1fcf1d6d49e318db987ca49191752cea493bacd3b6c3477a10ad061e14ada"
+  },
+  "inputs": "base-2026-10-15",
+  "mnav": {
+   "source": "data/raw/dat-accretion/weekly.csv (column m)",
+   "window": [
+    "2026-05-31",
+    "2026-10-11"
+   ],
+   "weeks": 20,
+   "n": 19
+  },
+  "mnav_limit": "20 derived weekly observations, 19 transitions; definition differs from starting net mNAV",
+  "scenario_source": "mc.sensitivity.assumptions; illustrative endpoints, existing tornado except reserve floor"
+ },
+ "base_params": {
+  "model": "gbm",
+  "horizon_years": 5.0,
+  "n_paths": 4000,
+  "seed": 20261021,
+  "btc_log_drift": 0.0,
+  "btc_vol": 0.6622741068826598,
+  "btc_window": [
+   "2016-01-01",
+   "2026-10-20"
+  ],
+  "block_weeks": 8,
+  "mnav_level": 1.1380818927797907,
+  "mnav_sd": 0.11362545344791555,
+  "mnav_half_life": 0.028194920975180164,
+  "mnav_rho": 0.0,
+  "mnav_dd_beta": 0.5,
+  "mnav_link": "start",
+  "mnav_start": null,
+  "adv_level": 17.487201543113738,
+  "adv_sd": 0.3794028700887078,
+  "adv_half_life": 0.03548081087456734,
+  "adv_rho": 0.04051016896115354,
+  "fx_vol": 0.07176185365308244,
+  "fx_rho": 0.12049897851774892,
+  "gate": 1.0,
+  "participation": 0.02,
+  "trading_days": 252,
+  "fee": 0.01,
+  "atm_binding": true,
+  "principal": true,
+  "put_rule": "rational",
+  "policy": "common_first",
+  "floor_months": 12.0,
+  "lookahead_months": 12.0,
+  "include_usd_cash": false,
+  "btc_sale_cost": 0.005,
+  "strc_rate": null
+ },
+ "base": {
+  "failures": 1819,
+  "survivors": 2181,
+  "p": 0.45475,
+  "mc_se": 0.007873252782363843,
+  "mc_wilson_95": [
+   0.4393694663140627,
+   0.4702173633036554
+  ]
+ },
+ "drivers": [
+  {
+   "assumption": "mNAV link form",
+   "category": "model assumption",
+   "max_abs_delta_p": 0.3395,
+   "cases": [
+    {
+     "overrides": {
+      "mnav_link": "peak"
+     },
+     "failures": 3177,
+     "survivors": 823,
+     "p": 0.79425,
+     "mc_se": 0.006391731719573342,
+     "mc_wilson_95": [
+      0.7814429488232741,
+      0.8064924188007365
+     ],
+     "delta_p": 0.3395,
+     "paired_mc_se": 0.007488254535537453,
+     "new_failures": 1358,
+     "avoided_failures": 0
+    }
+   ]
+  },
+  {
+   "assumption": "mNAV BTC linkage",
+   "category": "model assumption",
+   "max_abs_delta_p": 0.26575,
+   "cases": [
+    {
+     "overrides": {
+      "mnav_dd_beta": 0.0
+     },
+     "failures": 756,
+     "survivors": 3244,
+     "p": 0.189,
+     "mc_se": 0.0061902948233505005,
+     "mc_wilson_95": [
+      0.17716778330341296,
+      0.20142899042278137
+     ],
+     "delta_p": -0.26575,
+     "paired_mc_se": 0.006985265410720952,
+     "new_failures": 0,
+     "avoided_failures": 1063
+    },
+    {
+     "overrides": {
+      "mnav_dd_beta": 1.0
+     },
+     "failures": 2119,
+     "survivors": 1881,
+     "p": 0.52975,
+     "mc_se": 0.007891687675966402,
+     "mc_wilson_95": [
+      0.5142614284290191,
+      0.5451814846952437
+     ],
+     "delta_p": 0.075,
+     "paired_mc_se": 0.0042247144344929695,
+     "new_failures": 304,
+     "avoided_failures": 4
+    }
+   ]
+  },
+  {
+   "assumption": "Issuance gate",
+   "category": "funding policy",
+   "max_abs_delta_p": 0.22575,
+   "cases": [
+    {
+     "overrides": {
+      "gate": 0.0
+     },
+     "failures": 916,
+     "survivors": 3084,
+     "p": 0.229,
+     "mc_se": 0.006643775282172027,
+     "mc_wilson_95": [
+      0.21624210021590856,
+      0.24227791804710969
+     ],
+     "delta_p": -0.22575,
+     "paired_mc_se": 0.006611176997352482,
+     "new_failures": 0,
+     "avoided_failures": 903
+    },
+    {
+     "overrides": {
+      "gate": 1.2
+     },
+     "failures": 2431,
+     "survivors": 1569,
+     "p": 0.60775,
+     "mc_se": 0.0077199406976349244,
+     "mc_wilson_95": [
+      0.5925227212390434,
+      0.622770518732026
+     ],
+     "delta_p": 0.153,
+     "paired_mc_se": 0.005692613763717482,
+     "new_failures": 612,
+     "avoided_failures": 0
+    }
+   ]
+  },
+  {
+   "assumption": "Reserve floor months",
+   "category": "funding policy",
+   "max_abs_delta_p": 0.131,
+   "cases": [
+    {
+     "overrides": {
+      "floor_months": 0.0
+     },
+     "failures": 2343,
+     "survivors": 1657,
+     "p": 0.58575,
+     "mc_se": 0.007788564333367222,
+     "mc_wilson_95": [
+      0.5704095252003842,
+      0.600925930275432
+     ],
+     "delta_p": 0.131,
+     "paired_mc_se": 0.005335435007258468,
+     "new_failures": 524,
+     "avoided_failures": 0
+    },
+    {
+     "overrides": {
+      "floor_months": 24.0
+     },
+     "failures": 1473,
+     "survivors": 2527,
+     "p": 0.36825,
+     "mc_se": 0.007626302142913039,
+     "mc_wilson_95": [
+      0.3534357666243045,
+      0.383317046682532
+     ],
+     "delta_p": -0.0865,
+     "paired_mc_se": 0.004445152117119962,
+     "new_failures": 0,
+     "avoided_failures": 346
+    }
+   ]
+  },
+  {
+   "assumption": "mNAV level",
+   "category": "calibration transfer",
+   "max_abs_delta_p": 0.1275,
+   "cases": [
+    {
+     "overrides": {
+      "mnav_level": 1.0
+     },
+     "failures": 2249,
+     "survivors": 1751,
+     "p": 0.56225,
+     "mc_se": 0.007844184748907945,
+     "mc_wilson_95": [
+      0.5468232161588941,
+      0.5775573331515381
+     ],
+     "delta_p": 0.1075,
+     "paired_mc_se": 0.004910902843845052,
+     "new_failures": 431,
+     "avoided_failures": 1
+    },
+    {
+     "overrides": {
+      "mnav_level": 1.4
+     },
+     "failures": 1309,
+     "survivors": 2691,
+     "p": 0.32725,
+     "mc_se": 0.007418851621039471,
+     "mc_wilson_95": [
+      0.3128810939493389,
+      0.34195039370725305
+     ],
+     "delta_p": -0.1275,
+     "paired_mc_se": 0.005274266960724803,
+     "new_failures": 0,
+     "avoided_failures": 510
+    }
+   ]
+  },
+  {
+   "assumption": "Principal lookahead months",
+   "category": "funding policy",
+   "max_abs_delta_p": 0.127,
+   "cases": [
+    {
+     "overrides": {
+      "lookahead_months": 0.0
+     },
+     "failures": 2327,
+     "survivors": 1673,
+     "p": 0.58175,
+     "mc_se": 0.007799309865302186,
+     "mc_wilson_95": [
+      0.5663923327121289,
+      0.596950798310005
+     ],
+     "delta_p": 0.127,
+     "paired_mc_se": 0.005265423171055919,
+     "new_failures": 508,
+     "avoided_failures": 0
+    },
+    {
+     "overrides": {
+      "lookahead_months": 24.0
+     },
+     "failures": 1630,
+     "survivors": 2370,
+     "p": 0.4075,
+     "mc_se": 0.007769230174219322,
+     "mc_wilson_95": [
+      0.3923683851027594,
+      0.4228091119058355
+     ],
+     "delta_p": -0.04725,
+     "paired_mc_se": 0.003355171183176367,
+     "new_failures": 0,
+     "avoided_failures": 189
+    }
+   ]
+  },
+  {
+   "assumption": "BTC volatility",
+   "category": "calibration transfer",
+   "max_abs_delta_p": 0.0665,
+   "cases": [
+    {
+     "overrides": {
+      "btc_vol": 0.4681699658914688
+     },
+     "failures": 1553,
+     "survivors": 2447,
+     "p": 0.38825,
+     "mc_se": 0.007705711153099369,
+     "mc_wilson_95": [
+      0.3732611676316278,
+      0.4034532679436205
+     ],
+     "delta_p": -0.0665,
+     "paired_mc_se": 0.003939964254861,
+     "new_failures": 0,
+     "avoided_failures": 266
+    },
+    {
+     "overrides": {
+      "btc_vol": 0.8
+     },
+     "failures": 1937,
+     "survivors": 2063,
+     "p": 0.48425,
+     "mc_se": 0.007901770964473724,
+     "mc_wilson_95": [
+      0.46878534867311555,
+      0.4997448737905102
+     ],
+     "delta_p": 0.0295,
+     "paired_mc_se": 0.00276755349326522,
+     "new_failures": 122,
+     "avoided_failures": 4
+    }
+   ]
+  },
+  {
+   "assumption": "ADV participation",
+   "category": "funding policy",
+   "max_abs_delta_p": 0.06125,
+   "cases": [
+    {
+     "overrides": {
+      "participation": 0.01
+     },
+     "failures": 2064,
+     "survivors": 1936,
+     "p": 0.516,
+     "mc_se": 0.007901645398269907,
+     "mc_wilson_95": [
+      0.5005051320996846,
+      0.5314641657150451
+     ],
+     "delta_p": 0.06125,
+     "paired_mc_se": 0.0037918602197314047,
+     "new_failures": 245,
+     "avoided_failures": 0
+    },
+    {
+     "overrides": {
+      "participation": 0.05
+     },
+     "failures": 1589,
+     "survivors": 2411,
+     "p": 0.39725,
+     "mc_se": 0.007736963834412049,
+     "mc_wilson_95": [
+      0.38219136806386445,
+      0.4125057975321693
+     ],
+     "delta_p": -0.0575,
+     "paired_mc_se": 0.0036812804099068696,
+     "new_failures": 0,
+     "avoided_failures": 230
+    }
+   ]
+  },
+  {
+   "assumption": "mNAV dispersion",
+   "category": "calibration transfer",
+   "max_abs_delta_p": 0.03375,
+   "cases": [
+    {
+     "overrides": {
+      "mnav_sd": 0.06
+     },
+     "failures": 1901,
+     "survivors": 2099,
+     "p": 0.47525,
+     "mc_se": 0.007896002746643394,
+     "mc_wilson_95": [
+      0.45980527288601125,
+      0.49074221955682906
+     ],
+     "delta_p": 0.0205,
+     "paired_mc_se": 0.0024023697353001833,
+     "new_failures": 88,
+     "avoided_failures": 6
+    },
+    {
+     "overrides": {
+      "mnav_sd": 0.2
+     },
+     "failures": 1684,
+     "survivors": 2316,
+     "p": 0.421,
+     "mc_se": 0.007806391612006151,
+     "mc_wilson_95": [
+      0.40578270339965505,
+      0.4363688886401178
+     ],
+     "delta_p": -0.03375,
+     "paired_mc_se": 0.0028991094466915136,
+     "new_failures": 2,
+     "avoided_failures": 137
+    }
+   ]
+  },
+  {
+   "assumption": "mNAV half-life",
+   "category": "calibration transfer",
+   "max_abs_delta_p": 0.02775,
+   "cases": [
+    {
+     "overrides": {
+      "mnav_half_life": 0.25
+     },
+     "failures": 1924,
+     "survivors": 2076,
+     "p": 0.481,
+     "mc_se": 0.007899984177199344,
+     "mc_wilson_95": [
+      0.46554196386166463,
+      0.49649449498334414
+     ],
+     "delta_p": 0.02625,
+     "paired_mc_se": 0.0036767667900625854,
+     "new_failures": 162,
+     "avoided_failures": 57
+    },
+    {
+     "overrides": {
+      "mnav_half_life": 1.0
+     },
+     "failures": 1708,
+     "survivors": 2292,
+     "p": 0.427,
+     "mc_se": 0.007820981396218762,
+     "mc_wilson_95": [
+      0.4117483927565184,
+      0.4423916859637781
+     ],
+     "delta_p": -0.02775,
+     "paired_mc_se": 0.004623345996900055,
+     "new_failures": 117,
+     "avoided_failures": 228
+    }
+   ]
+  },
+  {
+   "assumption": "Put election",
+   "category": "funding policy",
+   "max_abs_delta_p": 0.01325,
+   "cases": [
+    {
+     "overrides": {
+      "put_rule": "all"
+     },
+     "failures": 1766,
+     "survivors": 2234,
+     "p": 0.4415,
+     "mc_se": 0.007851397168657308,
+     "mc_wilson_95": [
+      0.42617495329274474,
+      0.45693730157215046
+     ],
+     "delta_p": -0.01325,
+     "paired_mc_se": 0.0022682362308409864,
+     "new_failures": 15,
+     "avoided_failures": 68
+    }
+   ]
+  },
+  {
+   "assumption": "Issuance fee",
+   "category": "funding policy",
+   "max_abs_delta_p": 0.0015,
+   "cases": [
+    {
+     "overrides": {
+      "fee": 0.0
+     },
+     "failures": 1813,
+     "survivors": 2187,
+     "p": 0.45325,
+     "mc_se": 0.007871061515132505,
+     "mc_wilson_95": [
+      0.43787519408683473,
+      0.46871451386075247
+     ],
+     "delta_p": -0.0015,
+     "paired_mc_se": 0.0006119894874776819,
+     "new_failures": 0,
+     "avoided_failures": 6
+    },
+    {
+     "overrides": {
+      "fee": 0.03
+     },
+     "failures": 1824,
+     "survivors": 2176,
+     "p": 0.456,
+     "mc_se": 0.007875023809487817,
+     "mc_wilson_95": [
+      0.44061480086828403,
+      0.47146963014120985
+     ],
+     "delta_p": 0.00125,
+     "paired_mc_se": 0.0005587373460360994,
+     "new_failures": 5,
+     "avoided_failures": 0
+    }
+   ]
+  },
+  {
+   "assumption": "ATM capacity",
+   "category": "funding policy",
+   "max_abs_delta_p": 0.0,
+   "cases": [
+    {
+     "overrides": {
+      "atm_binding": false
+     },
+     "failures": 1819,
+     "survivors": 2181,
+     "p": 0.45475,
+     "mc_se": 0.007873252782363843,
+     "mc_wilson_95": [
+      0.4393694663140627,
+      0.4702173633036554
+     ],
+     "delta_p": 0.0,
+     "paired_mc_se": 0.0,
+     "new_failures": 0,
+     "avoided_failures": 0
+    }
+   ]
+  }
+ ]
+}

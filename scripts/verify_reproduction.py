@@ -38,9 +38,12 @@ def main(portable=False):
     if len(paths) != 7:
         raise SystemExit('expected seven result JSON files')
     paths.append(ROOT / 'results/funding_exhaustion.svg')
+    report = ROOT / 'reports/assumption_sensitivity.json'
+    paths.append(report)
     expected = {p: p.read_bytes() for p in paths}
     subprocess.run([sys.executable, '-m', 'mc.run'], cwd=ROOT, check=True)
     subprocess.run([sys.executable, 'scripts/render_figure.py'], cwd=ROOT, check=True)
+    subprocess.run([sys.executable, '-m', 'mc.sensitivity', '--output', str(report)], cwd=ROOT, check=True)
     changed = [p for p, data in expected.items() if p.read_bytes() != data]
     for path in changed:
         if not portable or path.suffix != '.json':
@@ -51,7 +54,7 @@ def main(portable=False):
             print(' ', row)
     for path in paths:
         print(hashlib.sha256(path.read_bytes()).hexdigest(), path.name)
-    print('All seven JSON results and the figure reproduced ' +
+    print('All seven legacy JSON results, sensitivity report and figure reproduced ' +
           ('within strict numerical tolerance (SVG bytes exact).' if portable else 'byte-for-byte.'))
 
 

@@ -44,3 +44,23 @@ The next GitHub run passed all 54 tests but differed in bytes only for `coverage
 CI uses `scripts/verify_reproduction.py --portable`: JSON floating values may differ by relative/absolute `1e-12`; schema, types, counts, strings and SVG bytes remain exact. Any tolerated differences are printed. This is an explicit cross-CPU acceptance policy, not a claim that specific floating differences were observed in the successful run. Default CLI reproduction stays byte-strict. A negative test rejects a one-path probability change, count changes, date changes and schema changes; it permits a one-ulp quantile change. The suite has **55 tests**. The separate recalibration tolerance above is supported by its actual recorded BLAS differences.
 
 The fresh GitHub clone on the original host reproduced all seven JSON files **and** the SVG exactly, first in 140 seconds with 54 tests, then in 155 seconds with 55 tests after updating. The [CI difference record](ci-differences.md) includes exact successful-run artifact hashes. Cross-machine byte identity is not guaranteed on every CPU/BLAS build. These checks establish computational reproduction, not parameter or model accuracy.
+
+## October 22 assumption-sensitivity slice
+
+The full suite now passes **65 tests** (4.29 seconds on the original host).
+New checks independently verify paired-indicator standard errors, Wilson
+boundaries, constant-charge cash/ATM/BTC resource budgets with fees, zero-charge
+survival, exact failure counts and reproducible report ranking. The standalone
+CLI rejects invalid path counts before writing output. See
+[assumption sensitivity](assumption-sensitivity.md) for settings, measured report
+runtime, input hashes and the five-minute reproduction command.
+
+The new report is separate from the seven legacy results. It describes conditional
+simulation error and selected scenario effects; parameter uncertainty remains
+unestimated. No engine, calibration, frozen source or figure changes are included.
+
+A fresh full `python scripts/verify_reproduction.py` run completed the legacy
+analysis in 129 seconds and reproduced all seven JSON outputs, the SVG and the
+new sensitivity report **byte-for-byte**. A separate CLI report invocation also
+matched the committed report exactly. CI retains its existing portable tolerance;
+local strict verification did not require it.

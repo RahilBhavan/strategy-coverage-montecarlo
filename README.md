@@ -11,8 +11,9 @@ This Python model extends the existing static preferred-coverage workbook into w
 - Static reproduction: $1,559.6675 million annual charges, 37.5465 reserve-only months and 15.1876 reserve-plus-common years. The workbook reports $1,559.6730 million, 37.5463 months and 15.1875 years; the note-interest rounding difference is documented (`results/static_check.json`).
 - Under the base GBM assumptions, 20,000 paths produce 46.240% five-year funding failure for reserve + common ATM (Monte Carlo standard error 0.353 percentage points), including modeled note principal. The block-bootstrap case gives 47.850% (`results/main.json`, seed 20261021, as of October 21, 2026).
 - One-at-a-time assumptions shift five-year tier-b exhaustion from 19.27% (no BTC link in mNAV) to 79.08% (peak-drawdown link), versus 46.21% base in the 10,000-path sensitivity run (`results/tornado.json`). These scenario differences are not confidence bounds.
+- A [paired sensitivity report](docs/assumption-sensitivity.md) ranks 13 funding/calibration assumptions, with exact failure counts, Wilson simulation intervals and paired change SEs; parameter uncertainty remains unestimated.
 - Results also include source tiers, principal-on/off comparisons, first-passage distributions, 20-year censoring, parameter sensitivities and simulation convergence.
-- 55 tests cover source hashes, filing parsing, static agreement, source exhaustion, correlation, invalid inputs and reproducibility.
+- 65 tests cover source hashes, filing parsing, static agreement, source exhaustion, correlation, invalid inputs and reproducibility.
 
 ## How it works
 
@@ -50,6 +51,7 @@ The full run writes `results/*.json` and took about three minutes on this host. 
 - [Public design system](DESIGN.md): Rahil Design 3.3.0, shared tokens and visual review rules.
 
 - [Scope and acceptance](docs/spec.md) — agreed local v1.
+- [Assumption sensitivity](docs/assumption-sensitivity.md) — ranked drivers, analytic checks and a five-minute example.
 - [Methodology](docs/methodology.md) — equations, funding policies and probability interpretation.
 - [Sources](docs/sources.md) — observed inputs, estimated bridges and frozen provenance.
 - [Correctness review](docs/review.md) — proven failures, repairs and remaining evidence limits.
