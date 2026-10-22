@@ -10,7 +10,7 @@ This Python model extends the existing static preferred-coverage workbook into w
 - Under the base GBM assumptions, 20,000 paths produce 46.240% five-year funding failure for reserve + common ATM (Monte Carlo standard error 0.353 percentage points), including modeled note principal. The block-bootstrap case gives 47.850% (`results/main.json`, seed 20261021, as of October 21, 2026).
 - One-at-a-time assumptions shift five-year tier-b exhaustion from 19.27% (no BTC link in mNAV) to 79.08% (peak-drawdown link), versus 46.21% base in the 10,000-path sensitivity run (`results/tornado.json`). These scenario differences are not confidence bounds.
 - Results also include source tiers, principal-on/off comparisons, first-passage distributions, 20-year censoring, parameter sensitivities and simulation convergence.
-- 54 tests cover source hashes, filing parsing, static agreement, source exhaustion, correlation, invalid inputs and reproducibility.
+- 55 tests cover source hashes, filing parsing, static agreement, source exhaustion, correlation, invalid inputs and reproducibility.
 
 ## How it works
 

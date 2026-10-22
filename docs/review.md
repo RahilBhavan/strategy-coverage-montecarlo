@@ -11,7 +11,7 @@ The baseline was clean and passed 44 tests in the pinned scratch venv. Review co
 3. **Rounded horizons missed failures.** A reserve lasting 364.5 days was reported as surviving one year because the engine stopped at day 364. Runs/snapshots now round up to a weekly boundary, and summaries cannot extend beyond simulated time. The regression compares one-year and 53-week paths and observes the same exhaustion at day 364.5.
 4. **Principal due was labeled paid.** With zero available funding, `principal_paid` could equal the entire cash obligation. The field is now `principal_due`, which preserves the actual metric without inventing a payment-priority policy. Tests assert a $1,000m due amount alongside $1,000m unmet funding. Consumers of raw engine snapshots must adopt the corrected field name; committed analysis JSON does not expose this field.
 
-The final suite has 54 passing tests. Added evidence covers prior-week moneyness despite opposing current-week shocks, maturity dilution, restoration retry/idempotence, refusal to overwrite modified sources, corrupted-bundle rejection, immutable static-reference hashes and exact recalibration. Source model copies were not edited. All full results were regenerated after the numerical repair.
+The final suite has 55 passing tests. Added evidence covers prior-week moneyness despite opposing current-week shocks, maturity dilution, restoration retry/idempotence, refusal to overwrite modified sources, corrupted-bundle rejection, immutable static-reference hashes and exact recalibration. Source model copies were not edited. All full results were regenerated after the numerical repair.
 
 ## Independent review
 

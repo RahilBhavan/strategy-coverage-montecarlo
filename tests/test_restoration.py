@@ -53,3 +53,14 @@ def test_frozen_calibration_is_reproducible():
                 assert actual[group][name] == pytest.approx(value, rel=1e-12, abs=1e-14)
             else:
                 assert actual[group][name] == value
+
+
+def test_portable_reproduction_rejects_material_changes():
+    import math
+    from scripts.verify_reproduction import compare_numeric
+    expected = {'count': 20_000, 'p': 0.4624, 'date': '2026-10-21', 'q': [5.869836535363827]}
+    assert len(compare_numeric(expected, {**expected, 'q': [math.nextafter(expected['q'][0], math.inf)]})) == 1
+    for actual in ({**expected, 'count': 19_999}, {**expected, 'p': expected['p'] + 1/20_000},
+                   {**expected, 'date': '2026-10-22'}, {**expected, 'q': []}, {**expected, 'extra': None}):
+        with pytest.raises(ValueError):
+            compare_numeric(expected, actual)
