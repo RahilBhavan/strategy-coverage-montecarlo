@@ -1,10 +1,10 @@
 # Strategy coverage Monte Carlo: conditional funding exhaustion across three source tiers
 
-[![Offline model verification](https://github.com/RahilBhavan/strategy-coverage-montecarlo/actions/workflows/ci.yml/badge.svg)](https://github.com/RahilBhavan/strategy-coverage-montecarlo/actions/workflows/ci.yml)
+A simulator that tests, over thousands of possible bitcoin price paths, how long Strategy's cash reserve, stock sales and bitcoin sales could keep paying its dividends and debt.
 
-![46.24% of GBM paths exhaust tier-b funding (reserve plus common ATM) within 5 years; reserve-only exhausts in every path; adding BTC sales leaves 61.41% funded at 20 years. Funding exhaustion is not legal default.](results/funding_exhaustion.svg)
+[![Offline model verification](https://github.com/RahilBhavan/strategy-coverage-montecarlo/actions/workflows/ci.yml/badge.svg)](https://github.com/RahilBhavan/strategy-coverage-montecarlo/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-This Python model asks how long Strategy's funding sources can pay its preferred dividends, debt interest and note principal. It extends the [static preferred-coverage workbook](https://github.com/RahilBhavan/strategy-preferred-coverage-model), an Excel model of one fixed scenario, into weekly BTC, mNAV, trading-volume and EUR/USD paths. It first reproduces the static result, then records the first week each funding tier cannot meet modeled charges. Its probabilities are conditional on chosen processes and financing rules; they are not Strategy default forecasts.
+This Python model asks how long Strategy's funding sources can pay its preferred dividends, debt interest and note principal. It extends the [static preferred-coverage workbook](https://github.com/RahilBhavan/strategy-preferred-coverage-model), an Excel model of one fixed scenario, into weekly BTC, mNAV, trading-volume and EUR/USD paths. It records the first week each funding tier cannot meet modeled charges. This README describes the method and its checks; the estimates are in `results/*.json`.
 
 The three funding tiers run on the same simulated paths:
 
@@ -12,17 +12,19 @@ The three funding tiers run on the same simulated paths:
 - **Tier b**: the reserve plus new common stock sold through the at-the-market (ATM) program.
 - **Tier c**: tier b plus BTC sales.
 
-## Results
+## What it does
 
 <!-- headline:start -->
-- **Headline: 46.24% of 20,000 simulated paths exhaust tier-b funding (reserve + common ATM) within five years** under the base GBM assumptions, including note principal. Monte Carlo standard error: 0.353 percentage points. The block-bootstrap case gives 47.85%. Funding exhaustion means the modeled sources cannot pay charges when due; **it is not legal default**, and unpaid amounts accumulate while the path continues. Source: `results/main.json`, seed 20261021, as of 2026-10-21.
-- The figure plots the same 46.24% at year 5 on the 20-year curves. Reserve only (tier a) exhausts in every path; adding BTC sales (tier c) leaves 61.41% of paths funded at 20 years (`results/coverage_distribution.json`). Funded at 20 years means censored, not funded forever.
+- **Paths:** 20,000 weekly paths per case, seed 20261021, frozen snapshot 2026-10-21. Each path moves BTC price, mNAV, MSTR trading volume and EUR/USD together.
+- **Two BTC processes:** lognormal (GBM) with assumed zero log drift and 66.2% annual volatility estimated from 2016-01-01 to 2026-10-20, and a circular block bootstrap of historical weekly returns in 8-week blocks, rescaled to the same drift and volatility. Both run with and without note principal.
+- **What is counted:** the share of paths whose funding tier first cannot pay modeled charges within 1, 3 and 5 years, with its binomial standard error. Survival is tracked to 20 years; paths still funded then are censored.
+- **Convergence:** the five-year tier-b estimate is rerun across 8 seeds at 500 to 50,000 paths to compare seed spread with the binomial standard error.
 <!-- headline:end -->
-- Static reproduction: $1,559.6675 million annual charges, 37.5465 reserve-only months and 15.1876 reserve-plus-common years. The workbook reports $1,559.6730 million, 37.5463 months and 15.1875 years; the note-interest rounding difference is documented (`results/static_check.json`).
-- One-at-a-time assumptions shift five-year tier-b exhaustion from 19.27% (no BTC link in mNAV) to 79.08% (peak-drawdown link), versus 46.21% base in the 10,000-path sensitivity run (`results/tornado.json`). These scenario differences are not confidence bounds.
-- A [paired sensitivity report](docs/assumption-sensitivity.md) ranks 13 funding/calibration assumptions, with exact failure counts, Wilson simulation intervals and paired change SEs; parameter uncertainty remains unestimated.
-- Results also include principal-on/off comparisons, first-passage distributions and simulation convergence.
-- 80 tests cover source hashes, filing parsing, static agreement, source exhaustion, correlation, invalid inputs and reproducibility.
+- **Funding exhaustion, not default:** a tier is exhausted when its modeled sources cannot pay charges when due. Unpaid amounts accumulate and the path continues. This is not legal default.
+- **Static check first:** the model first reproduces the workbook's fixed scenario. It gives $1,559.6675 million annual charges, 37.5465 reserve-only months and 15.1876 reserve-plus-common years; the workbook reports $1,559.6730 million, 37.5463 months and 15.1875 years. The gap is the workbook's rounded note interest (`results/static_check.json`).
+- **Sensitivity:** a one-at-a-time tornado runs 20 assumption changes on 10,000 paths with common random numbers (`results/tornado.json`). A [paired sensitivity report](docs/assumption-sensitivity.md) ranks 13 assumptions with exact failure counts, Wilson intervals and paired standard errors.
+- **What-if tool:** `python -m mc.run --set key=value` changes any model setting and prints base and changed probabilities on the same paths, with paired standard errors (see [Run it](#run-it)).
+- **Reproducibility:** CI restores the SHA-256-checked snapshot, runs 83 tests and reruns the full analysis, which must reproduce every result file (JSON floats within 1e-12).
 
 ## How it works
 
@@ -48,53 +50,45 @@ python3 scripts/restore_data.py
 .venv/bin/python -m mc.run
 ```
 
-For an exact full-run byte comparison, run `.venv/bin/python scripts/verify_reproduction.py`. Regenerate the figure with `python3 scripts/render_figure.py` and the README headline with `python3 scripts/readme_headline.py`.
+For an exact full-run byte comparison, run `.venv/bin/python scripts/verify_reproduction.py`. Regenerate the first-passage figure (`results/funding_exhaustion.svg`) with `python3 scripts/render_figure.py` and the README method block with `python3 scripts/readme_headline.py`. Its `--check` mode, run in CI, also fails if any result probability appears in the README or `docs/`.
 
-To change an assumption, pass `--set key=value` (repeatable). Keys are the fields of `mc.params.Params`; a wrong key prints the valid list. It prints base and changed probabilities on the same paths and writes nothing; `--quick` uses 2,000 paths. Raising ADV participation from 2% to 5% took about 5 seconds here:
+To change an assumption, pass `--set key=value` (repeatable). Keys are the fields of `mc.params.Params`; a wrong key prints the valid list. It prints base and changed probabilities on the same paths and writes nothing; `--quick` uses 2,000 paths. Raising ADV participation from 2% to 5% took about 4 seconds here:
 
 ```bash
 .venv/bin/python -m mc.run --set participation=0.05
 ```
+
+The output starts:
 
 ```text
 Changed: participation 0.02 -> 0.05
 20,000 GBM paths, seed 20261021, principal included, frozen snapshot 2026-10-21.
 P(first funding exhaustion within N years), simulation SE in brackets:
 tier years              base           changed     change (paired SE)
-a        1     0.00% (0.00)     0.00% (0.00)        +0.00 pp (0.00)
-a        3    89.96% (0.21)    89.96% (0.21)        +0.00 pp (0.00)
-a        5   100.00% (0.00)   100.00% (0.00)        +0.00 pp (0.00)
-b        1     0.00% (0.00)     0.00% (0.00)        +0.00 pp (0.00)
-b        3    35.45% (0.34)    29.38% (0.32)        -6.07 pp (0.17)
-b        5    46.24% (0.35)    40.29% (0.35)        -5.95 pp (0.17)
-c        1     0.00% (0.00)     0.00% (0.00)        +0.00 pp (0.00)
-c        3     0.47% (0.05)     0.46% (0.05)        -0.01 pp (0.01)
-c        5     2.77% (0.12)     2.67% (0.11)        -0.10 pp (0.02)
-Tiers: a = reserve only; b = reserve + common ATM; c = reserve + common ATM + BTC sales.
-Funding exhaustion is not legal default. SEs cover simulation noise only, not model or parameter error.
 ```
+
+One row follows for each tier at 1, 3 and 5 years, then a tier key and the reminder that standard errors cover simulation noise only.
 
 The full run writes `results/*.json` and took about three minutes on this host. `--quick` uses 2,000 main paths and smaller sensitivity/convergence runs; it also overwrites `results/`. Source refresh (`python -m mc.fetch`) is separate, may depend on sibling caches and changes the snapshot. Restore the committed snapshot for the reported results.
 
 ## Repository layout
 
-- `mc/` — input parsers, path processes, validation and funding engine.
-- `data/` — compressed raw snapshot, derived calibration and static reference copies.
-- `results/` — analysis JSON with settings and estimates.
-- `tests/` — real-source, deterministic and stochastic behavior checks.
-- `scripts/` — SHA-256-checked snapshot restoration.
-- `docs/` — scope, methodology, provenance and verification.
+- `mc/`: input parsers, path processes, validation and funding engine.
+- `data/`: compressed raw snapshot, derived calibration and static reference copies.
+- `results/`: analysis JSON with settings and estimates, plus the first-passage SVG.
+- `tests/`: real-source, deterministic and stochastic behavior checks.
+- `scripts/`: SHA-256-checked snapshot restoration, reproduction check, figure and README generators.
+- `docs/`: scope, methodology, provenance and verification.
 
 ## Documentation
 
 - [Public design system](DESIGN.md): Rahil Design 3.3.0, shared tokens and visual review rules.
-
-- [Scope and acceptance](docs/spec.md) — agreed local v1.
-- [Assumption sensitivity](docs/assumption-sensitivity.md) — ranked drivers, analytic checks and a five-minute example.
-- [Methodology](docs/methodology.md) — equations, funding policies and probability interpretation.
-- [Sources](docs/sources.md) — observed inputs, estimated bridges and frozen provenance.
-- [Correctness review](docs/review.md) — proven failures, repairs and remaining evidence limits.
-- [Verification](docs/verification.md) — commands and comparison tolerances.
+- [Scope and acceptance](docs/spec.md): agreed local v1.
+- [Assumption sensitivity](docs/assumption-sensitivity.md): ranked drivers, analytic checks and a five-minute example.
+- [Methodology](docs/methodology.md): equations, funding policies and probability interpretation.
+- [Sources](docs/sources.md): observed inputs, estimated bridges and frozen provenance.
+- [Correctness review](docs/review.md): proven failures, repairs and remaining evidence limits.
+- [Verification](docs/verification.md): commands and comparison tolerances.
 
 ## Sources
 
@@ -102,14 +96,14 @@ The full run writes `results/*.json` and took about three minutes on this host. 
 
 ## Scope and limits
 
-- Independent research, unaffiliated with Strategy. No trades, financing actions or solvency prediction.
-- Funding exhaustion is not legal default (see the headline). The 1x issuance gate, ADV participation, financing fee, reserve target and principal pre-funding are policy assumptions. Remaining ATM registration is a cap, not assured demand.
+- Independent research, unaffiliated with Strategy. No trades, financing actions or solvency prediction. Probabilities are conditional on the chosen processes and financing rules; they are not Strategy default forecasts.
+- The 1x issuance gate, ADV participation, financing fee, reserve target and principal pre-funding are policy assumptions. Remaining ATM registration is a cap, not assured demand.
 - Annual BTC volatility uses history; the projected log drift is assumed zero. The 20-week mNAV sample is weak evidence. mNAV shock correlation is assumed zero in the base case; the BTC-level link still correlates paths. Sensitivities vary both.
 - Weekly accrual is not a dividend/coupon payment calendar. The October 28 daily-dividend vote remains pending on October 21; no amendment is treated as enacted.
 - Starting inputs mix observation dates and estimates. No operating cash flow, new preferred issuance, new debt/ATM program, taxes, balance-sheet strategy response or BTC repurchases are modeled. Default runs exclude non-reserve USD cash from funding.
 - Note puts use a prior-week moneyness rule; maturity conversion and dilution are scenarios, not observed holder/company decisions. No make-whole adjustments or contractual path-dependent conversion eligibility rules are modeled.
 - Calibration uses the October 21 snapshot, including observations after the October 16 static-comparison start. This is retrospective scenario analysis, not an out-of-sample backtest.
-- Binomial standard errors describe simulation noise only. They omit parameter, model and data error; zero observed failures does not prove zero risk. Twenty-year survivors are censored, not infinitely funded.
+- Binomial standard errors describe simulation noise only. They omit parameter, model and data error; zero observed failures does not prove zero risk. Sensitivity scenario differences are not confidence bounds. Twenty-year survivors are censored, not infinitely funded.
 
 ## License
 

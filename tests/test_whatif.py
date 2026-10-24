@@ -79,4 +79,4 @@ def test_readme_example_is_real_output():
     sample = readme.split(command, 1)[1].split('```text\n', 1)[1].split('```', 1)[0]
     done = run_cli('--set', 'participation=0.05')
     assert done.returncode == 0, done.stderr
-    assert sample == done.stdout
+    assert sample.count('\n') >= 4 and done.stdout.startswith(sample)
