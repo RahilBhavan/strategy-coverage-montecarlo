@@ -72,3 +72,7 @@ local strict verification did not require it.
 ## Methods README (October 22, 2026)
 
 The README now describes the method and its checks and states no result probability. It no longer embeds the figure, because the curves encode the result. `scripts/readme_headline.py` writes the README method block (path count, seed, snapshot date, BTC processes, horizons, censoring and convergence settings) from `results/main.json`, `results/coverage_distribution.json` and `results/convergence.json`. Its `--check` mode, still in CI, fails if that block is stale or if any probability strictly between 0 and 1 from the main run, the first-passage distribution or the tornado appears in `README.md` or `docs/`, rounded to two decimal places. The README `--set` sample is now the first four lines of real output; `tests/test_whatif.py` checks that it is a prefix of a fresh run. Result JSON files, the SVG and the model are unchanged.
+
+## Re-check 2026-10-24
+
+This file is a chronological log; earlier test counts describe earlier commits. At `81dcd3e` in a fresh clone, Python 3.14.7, NumPy 2.5.4 and pytest 9.1.1: `pytest -q` passed 83 tests; `scripts/readme_headline.py --check` passed; `scripts/verify_reproduction.py --portable` (2m28s) and the strict `scripts/verify_reproduction.py` both reproduced all seven JSON results, the sensitivity report and the SVG byte-for-byte (strict mode on this host). `pip-audit` found no known vulnerabilities in `requirements.txt`.
