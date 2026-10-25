@@ -4,6 +4,8 @@ A simulator that tests, over thousands of possible bitcoin price paths, how long
 
 [![Offline model verification](https://github.com/RahilBhavan/strategy-coverage-montecarlo/actions/workflows/ci.yml/badge.svg)](https://github.com/RahilBhavan/strategy-coverage-montecarlo/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
+![Method diagram in four steps: frozen inputs, 20,000 weekly paths per case, three funding tiers on the same paths, and a readout of the share of paths that fail within 1, 3 and 5 years. It states no result probabilities.](docs/assets/method.svg)
+
 This Python model asks how long Strategy's funding sources can pay its preferred dividends, debt interest and note principal. It extends the [static preferred-coverage workbook](https://github.com/RahilBhavan/strategy-preferred-coverage-model), an Excel model of one fixed scenario, into weekly BTC, mNAV, trading-volume and EUR/USD paths. It records the first week each funding tier cannot meet modeled charges. This README describes the method and its checks; the estimates are in `results/*.json`.
 
 The three funding tiers run on the same simulated paths:
