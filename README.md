@@ -91,6 +91,7 @@ The full run writes `results/*.json` and took about three minutes on this host. 
 - [Sources](docs/sources.md): observed inputs, estimated bridges and frozen provenance.
 - [Correctness review](docs/review.md): proven failures, repairs and remaining evidence limits.
 - [Verification](docs/verification.md): commands and comparison tolerances.
+- [Related project](https://github.com/RahilBhavan/strategy-preferred-coverage-model): the Excel workbook whose static scenario this simulator reproduces (1,559.667 vs 1,559.673 $M) before running paths.
 
 ## Sources
 
